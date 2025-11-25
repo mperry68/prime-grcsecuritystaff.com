@@ -55,6 +55,16 @@ document.addEventListener('DOMContentLoaded', function() {
             const footerPlaceholder = document.getElementById('footer-placeholder');
             if (footerPlaceholder) {
                 footerPlaceholder.innerHTML = data;
+                // Fix logo paths in subdirectories
+                if (basePath !== '/') {
+                    const logoImages = footerPlaceholder.querySelectorAll('.footer-logo-image');
+                    logoImages.forEach(img => {
+                        const currentSrc = img.getAttribute('src');
+                        if (currentSrc.startsWith('/')) {
+                            img.setAttribute('src', '../' + currentSrc.substring(1));
+                        }
+                    });
+                }
             }
         })
         .catch(error => {
