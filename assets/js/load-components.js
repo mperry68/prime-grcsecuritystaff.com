@@ -149,18 +149,28 @@
             toggleMenu();
         });
         
-        // Close menu when clicking overlay
+        // Close menu when clicking overlay (but NOT the menu itself)
         menuOverlay.addEventListener('click', function(e) {
-            if (e.target === navMenu || navMenu.contains(e.target)) {
+            // Check if click is actually on the menu (not overlay)
+            const menuRect = navMenu.getBoundingClientRect();
+            const clickX = e.clientX;
+            const clickY = e.clientY;
+            
+            // If click is within menu bounds, don't close
+            if (clickX >= menuRect.left && clickX <= menuRect.right &&
+                clickY >= menuRect.top && clickY <= menuRect.bottom) {
                 return;
             }
+            
+            // Click is on overlay, close menu
             navMenu.classList.remove('active');
             menuOverlay.classList.remove('active');
             document.body.style.overflow = '';
         });
         
         // Close menu when clicking X button (top-right corner)
-        navMenu.addEventListener('click', function(e) {
+        // Use mousedown to avoid interfering with link clicks
+        navMenu.addEventListener('mousedown', function(e) {
             // Don't interfere with link clicks
             if (e.target.tagName === 'A' || e.target.closest('a')) {
                 return;
@@ -174,6 +184,25 @@
             if (clickX > rect.width - 60 && clickY < 60) {
                 e.preventDefault();
                 e.stopPropagation();
+                navMenu.classList.remove('active');
+                menuOverlay.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+        
+        // Also handle touch for mobile
+        navMenu.addEventListener('touchstart', function(e) {
+            if (e.target.tagName === 'A' || e.target.closest('a')) {
+                return;
+            }
+            
+            const rect = navMenu.getBoundingClientRect();
+            const touch = e.touches[0];
+            const clickX = touch.clientX - rect.left;
+            const clickY = touch.clientY - rect.top;
+            
+            if (clickX > rect.width - 60 && clickY < 60) {
+                e.preventDefault();
                 navMenu.classList.remove('active');
                 menuOverlay.classList.remove('active');
                 document.body.style.overflow = '';
@@ -197,16 +226,26 @@
         });
         
         // Close menu when clicking regular navigation links
-        const regularNavLinks = document.querySelectorAll('.nav-menu > li > a:not(.nav-dropdown > a), .dropdown-menu a');
-        regularNavLinks.forEach(link => {
-            link.addEventListener('click', function() {
-                setTimeout(function() {
-                    navMenu.classList.remove('active');
-                    menuOverlay.classList.remove('active');
-                    document.body.style.overflow = '';
-                }, 100);
-            });
-        });
+        // Use event delegation to catch all link clicks
+        navMenu.addEventListener('click', function(e) {
+            const link = e.target.closest('a');
+            if (!link) return;
+            
+            // Don't close if it's a dropdown toggle
+            if (link.parentElement.classList.contains('nav-dropdown') && 
+                (link.getAttribute('href') === '#' || 
+                 link.getAttribute('href')?.startsWith('#services') || 
+                 link.getAttribute('href')?.startsWith('#staff-augmentation'))) {
+                return;
+            }
+            
+            // For all other links, close menu after navigation
+            setTimeout(function() {
+                navMenu.classList.remove('active');
+                menuOverlay.classList.remove('active');
+                document.body.style.overflow = '';
+            }, 150);
+        }, true); // Use capture phase
         
         // Set active menu item
         const currentPath = window.location.pathname;

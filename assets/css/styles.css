@@ -1163,6 +1163,10 @@ body {
 }
 
 @media (max-width: 768px) {
+    .menu-overlay {
+        z-index: 1000;
+    }
+    
     .menu-overlay.active {
         display: block !important;
         opacity: 1 !important;
@@ -1186,7 +1190,7 @@ body {
         box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
         padding: 60px 0 0 0;
         gap: 0;
-        z-index: 1001;
+        z-index: 1002 !important;
         overflow-y: auto;
         pointer-events: auto !important;
         visibility: hidden;
@@ -1196,6 +1200,14 @@ body {
         left: 0 !important;
         visibility: visible !important;
         pointer-events: auto !important;
+        z-index: 1002 !important;
+    }
+    
+    .nav-menu li,
+    .nav-menu a {
+        pointer-events: auto !important;
+        position: relative;
+        z-index: 1;
     }
 
     .nav-menu::after {
