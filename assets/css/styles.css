@@ -49,11 +49,14 @@ body {
     z-index: 1000;
     padding: 1rem 0;
     width: 100%;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
 }
 
 @media (max-width: 768px) {
     .navbar {
-        position: relative;
+        position: sticky;
+        top: 0;
     }
 }
 
