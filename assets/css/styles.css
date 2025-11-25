@@ -1151,7 +1151,7 @@ body {
     background: rgba(0, 0, 0, 0.5);
     z-index: 1000;
     opacity: 0;
-    transition: opacity 0.3s;
+    transition: opacity 0.3s ease;
     cursor: pointer;
     pointer-events: none;
 }
@@ -1160,6 +1160,14 @@ body {
     display: block;
     opacity: 1;
     pointer-events: auto;
+}
+
+@media (max-width: 768px) {
+    .menu-overlay.active {
+        display: block !important;
+        opacity: 1 !important;
+        pointer-events: auto !important;
+    }
 }
 
 /* Responsive Design */
@@ -1181,11 +1189,13 @@ body {
         z-index: 1001;
         overflow-y: auto;
         pointer-events: auto !important;
+        visibility: hidden;
     }
 
     .nav-menu.active {
-        left: 0;
-        pointer-events: auto;
+        left: 0 !important;
+        visibility: visible !important;
+        pointer-events: auto !important;
     }
 
     .nav-menu::after {

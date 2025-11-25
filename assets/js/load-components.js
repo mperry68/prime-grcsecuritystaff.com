@@ -1,12 +1,5 @@
 // Load Header and Footer components
 document.addEventListener('DOMContentLoaded', function() {
-    // Fallback: try to initialize navigation if it already exists (for static pages)
-    setTimeout(function() {
-        if (document.querySelector('.nav-toggle') && !document.querySelector('.nav-menu')?.dataset.initialized) {
-            initializeNavigation();
-        }
-    }, 200);
-
     const getBasePath = () => {
         const pathSegments = window.location.pathname.split('/').filter(segment => segment !== '');
         // If the current path is a subdirectory (e.g., /blog/post.html), we need to go up one level
@@ -24,6 +17,13 @@ document.addEventListener('DOMContentLoaded', function() {
     // Load Header
     fetch(headerPath)
         .then(response => {
+            if (!response.ok) {
+                // Try absolute path as fallback
+                return fetch('/includes/header.html');
+            }
+            return response;
+        })
+        .then(response => {
             if (!response.ok) throw new Error('Network response was not ok');
             return response.text();
         })
@@ -31,33 +31,25 @@ document.addEventListener('DOMContentLoaded', function() {
             const headerPlaceholder = document.getElementById('header-placeholder');
             if (headerPlaceholder) {
                 headerPlaceholder.innerHTML = data;
-                // Wait a moment for DOM to update, then initialize navigation
+                // Wait for DOM to update, then initialize navigation
                 setTimeout(function() {
                     initializeNavigation();
-                }, 100);
+                }, 150);
             }
         })
         .catch(error => {
             console.error('Error loading header:', error);
-            // Fallback: try absolute path
-            if (basePath !== '/') {
-                fetch('/includes/header.html')
-                    .then(response => response.text())
-                    .then(data => {
-                        const headerPlaceholder = document.getElementById('header-placeholder');
-                        if (headerPlaceholder) {
-                            headerPlaceholder.innerHTML = data;
-                            setTimeout(function() {
-                                initializeNavigation();
-                            }, 100);
-                        }
-                    })
-                    .catch(err => console.error('Error loading header from absolute path:', err));
-            }
         });
 
     // Load Footer
     fetch(footerPath)
+        .then(response => {
+            if (!response.ok) {
+                // Try absolute path as fallback
+                return fetch('/includes/footer.html');
+            }
+            return response;
+        })
         .then(response => {
             if (!response.ok) throw new Error('Network response was not ok');
             return response.text();
@@ -71,7 +63,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     const logoImages = footerPlaceholder.querySelectorAll('.footer-logo-image');
                     logoImages.forEach(img => {
                         const currentSrc = img.getAttribute('src');
-                        if (currentSrc.startsWith('/')) {
+                        if (currentSrc && currentSrc.startsWith('/')) {
                             img.setAttribute('src', '../' + currentSrc.substring(1));
                         }
                     });
@@ -80,18 +72,6 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .catch(error => {
             console.error('Error loading footer:', error);
-            // Fallback: try absolute path
-            if (basePath !== '/') {
-                fetch('/includes/footer.html')
-                    .then(response => response.text())
-                    .then(data => {
-                        const footerPlaceholder = document.getElementById('footer-placeholder');
-                        if (footerPlaceholder) {
-                            footerPlaceholder.innerHTML = data;
-                        }
-                    })
-                    .catch(err => console.error('Error loading footer from absolute path:', err));
-            }
         });
 });
 
@@ -101,37 +81,36 @@ function initializeNavigation() {
     const navMenu = document.querySelector('.nav-menu');
     
     if (!navToggle || !navMenu) {
-        console.warn('Navigation elements not found');
+        // Retry after a short delay if elements aren't ready
+        setTimeout(function() {
+            initializeNavigation();
+        }, 100);
         return;
     }
     
-    // If already initialized, remove old listeners and reinitialize
+    // If already initialized, skip
     if (navMenu.dataset.initialized === 'true') {
-        // Remove old event listeners by cloning the elements
-        const newNavToggle = navToggle.cloneNode(true);
-        const newNavMenu = navMenu.cloneNode(true);
-        navToggle.parentNode.replaceChild(newNavToggle, navToggle);
-        navMenu.parentNode.replaceChild(newNavMenu, navMenu);
-        // Get fresh references
-        const freshNavToggle = document.querySelector('.nav-toggle');
-        const freshNavMenu = document.querySelector('.nav-menu');
-        return initializeNavigationWithElements(freshNavToggle, freshNavMenu);
+        return;
     }
     
-    // Mark as initialized to prevent duplicate initialization
+    // Mark as initialized immediately to prevent duplicates
     navMenu.dataset.initialized = 'true';
     initializeNavigationWithElements(navToggle, navMenu);
 }
 
 function initializeNavigationWithElements(navToggle, navMenu) {
-    if (!navToggle || !navMenu) return;
+    if (!navToggle || !navMenu) {
+        console.error('Navigation elements not found');
+        return;
+    }
 
-    // Remove existing overlay if any
+    // Remove any existing overlay
     const existingOverlay = document.querySelector('.menu-overlay');
     if (existingOverlay) {
         existingOverlay.remove();
     }
     
+    // Create overlay
     const menuOverlay = document.createElement('div');
     menuOverlay.className = 'menu-overlay';
     document.body.appendChild(menuOverlay);
@@ -150,16 +129,16 @@ function initializeNavigationWithElements(navToggle, navMenu) {
         }
     }
     
-    // Toggle button click handler
+    // Toggle button - simple click handler
     navToggle.addEventListener('click', function(e) {
         e.preventDefault();
         e.stopPropagation();
         toggleMenu();
     });
 
-    // Close menu when clicking overlay
+    // Close menu when clicking overlay (but not the menu itself)
     menuOverlay.addEventListener('click', function(e) {
-        // Don't close if clicking on the menu itself
+        // Don't close if clicking on the menu
         if (e.target === navMenu || navMenu.contains(e.target)) {
             return;
         }
