@@ -42,7 +42,7 @@
                 const headerPlaceholder = document.getElementById('header-placeholder');
                 if (headerPlaceholder) {
                     headerPlaceholder.innerHTML = data;
-                    // Initialize navigation after header loads
+                    // Initialize navigation after header loads - use same simple approach as working site
                     setTimeout(initializeNavigation, 200);
                 }
             })
@@ -95,7 +95,7 @@
             });
     }
     
-    // Initialize navigation - SIMPLE AND CLEAN
+    // Initialize navigation - EXACT REPLICATION OF WORKING VERSION
     function initializeNavigation() {
         // Prevent multiple initializations
         if (navigationInitialized) {
@@ -115,96 +115,66 @@
         
         // Mark as initialized
         navigationInitialized = true;
-        navMenu.dataset.initialized = 'true';
         
-        // Remove any existing overlay
-        const existingOverlay = document.querySelector('.menu-overlay');
-        if (existingOverlay) {
-            existingOverlay.remove();
-        }
-        
-        // Create overlay - BEHIND the menu
+        // Create overlay - EXACTLY like working version
         const menuOverlay = document.createElement('div');
         menuOverlay.className = 'menu-overlay';
         document.body.appendChild(menuOverlay);
         
-        // Simple toggle function
-        function openMenu() {
-            navMenu.classList.add('active');
-            menuOverlay.classList.add('active');
-            document.body.style.overflow = 'hidden';
+        // Toggle menu - EXACTLY like working version
+        if (navToggle) {
+            navToggle.addEventListener('click', function() {
+                navMenu.classList.toggle('active');
+                menuOverlay.classList.toggle('active');
+                document.body.style.overflow = navMenu.classList.contains('active') ? 'hidden' : '';
+            });
         }
         
-        function closeMenu() {
+        // Close menu when clicking overlay - EXACTLY like working version
+        menuOverlay.addEventListener('click', function() {
             navMenu.classList.remove('active');
             menuOverlay.classList.remove('active');
             document.body.style.overflow = '';
-        }
-        
-        // Toggle button
-        navToggle.addEventListener('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            if (navMenu.classList.contains('active')) {
-                closeMenu();
-            } else {
-                openMenu();
-            }
         });
         
-        // Close when clicking overlay (outside menu)
-        menuOverlay.addEventListener('click', function(e) {
-            // Only close if clicking directly on overlay, not menu
-            if (e.target === menuOverlay) {
-                closeMenu();
-            }
-        });
-        
-        // Close when clicking X button
+        // Close menu when clicking close button (X) - EXACTLY like working version
         navMenu.addEventListener('click', function(e) {
-            // Check if clicking in close button area (top-right)
+            // Check if clicking on the close button area (top right)
             const rect = navMenu.getBoundingClientRect();
             const clickX = e.clientX - rect.left;
             const clickY = e.clientY - rect.top;
             
-            // Close button area: top-right 60x60px
+            // Close button is in top right (within 60px from right, 60px from top)
             if (clickX > rect.width - 60 && clickY < 60) {
-                // Make sure we're not clicking on a link
-                if (!e.target.closest('a')) {
-                    e.preventDefault();
-                    closeMenu();
-                }
+                navMenu.classList.remove('active');
+                menuOverlay.classList.remove('active');
+                document.body.style.overflow = '';
             }
         });
         
-        // Handle dropdown toggles
+        // Handle dropdown menus on mobile - EXACTLY like working version
         const dropdownToggles = document.querySelectorAll('.nav-dropdown > a');
         dropdownToggles.forEach(toggle => {
             toggle.addEventListener('click', function(e) {
                 if (window.innerWidth <= 768) {
-                    const href = this.getAttribute('href');
-                    if (href === '#' || href.startsWith('#services') || href.startsWith('#staff-augmentation')) {
-                        e.preventDefault();
-                        const dropdown = this.parentElement;
-                        dropdown.classList.toggle('active');
-                    }
+                    e.preventDefault();
+                    const dropdown = this.parentElement;
+                    dropdown.classList.toggle('active');
                 }
             });
         });
         
-        // Close menu when clicking regular links
-        const allLinks = document.querySelectorAll('.nav-menu a');
-        allLinks.forEach(link => {
+        // Close mobile menu when clicking on a link - EXACTLY like working version
+        const navLinks = document.querySelectorAll('.nav-menu a:not(.nav-dropdown > a)');
+        navLinks.forEach(link => {
             link.addEventListener('click', function() {
-                // Don't close if it's a dropdown toggle
-                const href = this.getAttribute('href');
-                if (href !== '#' && !href.startsWith('#services') && !href.startsWith('#staff-augmentation')) {
-                    setTimeout(closeMenu, 100);
-                }
+                navMenu.classList.remove('active');
+                menuOverlay.classList.remove('active');
+                document.body.style.overflow = '';
             });
         });
         
-        // Set active menu item
+        // Set active menu item based on current page - EXACTLY like working version
         const currentPath = window.location.pathname;
         const menuItems = document.querySelectorAll('.nav-menu > li > a');
         menuItems.forEach(item => {
@@ -214,7 +184,7 @@
             }
         });
         
-        // Smooth scrolling for anchor links
+        // Smooth scrolling for anchor links - EXACTLY like working version
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 const href = this.getAttribute('href');
@@ -227,7 +197,6 @@
                             top: offsetTop,
                             behavior: 'smooth'
                         });
-                        closeMenu();
                     }
                 }
             });

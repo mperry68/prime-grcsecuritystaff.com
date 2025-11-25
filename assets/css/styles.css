@@ -1140,7 +1140,7 @@ body {
     opacity: 0.95;
 }
 
-/* Mobile Menu Overlay - BEHIND the menu */
+/* Mobile Menu Overlay - EXACTLY like working version */
 .menu-overlay {
     display: none;
     position: fixed;
@@ -1149,17 +1149,14 @@ body {
     width: 100%;
     height: 100%;
     background: rgba(0, 0, 0, 0.5);
-    z-index: 1000;
+    z-index: 999;
     opacity: 0;
-    transition: opacity 0.3s ease;
-    cursor: pointer;
-    pointer-events: none;
+    transition: opacity 0.3s;
 }
 
 .menu-overlay.active {
     display: block;
     opacity: 1;
-    pointer-events: auto;
 }
 
 /* Responsive Design */
@@ -1191,38 +1188,12 @@ body {
         position: absolute;
         top: 20px;
         right: 20px;
-        font-size: 28px;
+        font-size: 24px;
         color: var(--text-color);
         cursor: pointer;
         font-weight: normal;
         line-height: 1;
-        z-index: 1003;
-        width: 40px;
-        height: 40px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: rgba(255, 255, 255, 0.1);
-        border-radius: 50%;
-        transition: background 0.2s;
-        pointer-events: none; /* Let the click handler on navMenu handle it */
-    }
-    
-    /* Create a clickable area for the close button */
-    .nav-menu::before {
-        content: '';
-        position: absolute;
-        top: 10px;
-        right: 10px;
-        width: 50px;
-        height: 50px;
-        z-index: 1002;
-        cursor: pointer;
-        pointer-events: auto;
-    }
-
-    .nav-menu::after:hover {
-        background: rgba(255, 255, 255, 0.2);
+        z-index: 10;
     }
 
     .nav-menu li {
@@ -1238,11 +1209,6 @@ body {
         text-decoration: none;
         font-weight: 500;
         transition: background 0.2s, color 0.2s;
-        cursor: pointer;
-        pointer-events: auto !important;
-        -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
-        position: relative;
-        z-index: 1;
     }
 
     .nav-menu > li > a:hover,
