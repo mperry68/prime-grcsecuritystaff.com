@@ -1,19 +1,35 @@
 // Mobile Navigation Toggle
+// This will only run if navigation is already in the DOM (static pages)
+// For dynamically loaded headers, initialization is handled by load-components.js
 document.addEventListener('DOMContentLoaded', function() {
+    // Wait a bit to see if header is being loaded dynamically
+    setTimeout(function() {
+        initializeNavigationIfExists();
+    }, 100);
+});
+
+function initializeNavigationIfExists() {
     const navToggle = document.querySelector('.nav-toggle');
     const navMenu = document.querySelector('.nav-menu');
+    
+    // If navigation doesn't exist or is already initialized, skip
+    if (!navToggle || !navMenu || navMenu.dataset.initialized === 'true') {
+        return;
+    }
+    
     const menuOverlay = document.createElement('div');
     menuOverlay.className = 'menu-overlay';
     document.body.appendChild(menuOverlay);
 
+    // Mark as initialized
+    navMenu.dataset.initialized = 'true';
+
     // Toggle menu
-    if (navToggle) {
-        navToggle.addEventListener('click', function() {
-            navMenu.classList.toggle('active');
-            menuOverlay.classList.toggle('active');
-            document.body.style.overflow = navMenu.classList.contains('active') ? 'hidden' : '';
-        });
-    }
+    navToggle.addEventListener('click', function() {
+        navMenu.classList.toggle('active');
+        menuOverlay.classList.toggle('active');
+        document.body.style.overflow = navMenu.classList.contains('active') ? 'hidden' : '';
+    });
 
     // Close menu when clicking overlay
     menuOverlay.addEventListener('click', function() {
@@ -86,6 +102,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
+}
 
     // Contact Form Handling
     const contactForm = document.getElementById('contactForm');
