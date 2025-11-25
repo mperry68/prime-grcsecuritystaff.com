@@ -95,7 +95,7 @@
             });
     }
     
-    // Initialize navigation - SINGLE SOURCE OF TRUTH
+    // Initialize navigation - SIMPLE AND CLEAN
     function initializeNavigation() {
         // Prevent multiple initializations
         if (navigationInitialized) {
@@ -123,93 +123,61 @@
             existingOverlay.remove();
         }
         
-        // Create overlay
+        // Create overlay - BEHIND the menu
         const menuOverlay = document.createElement('div');
         menuOverlay.className = 'menu-overlay';
         document.body.appendChild(menuOverlay);
         
-        // Toggle menu function
-        function toggleMenu() {
-            const isActive = navMenu.classList.contains('active');
-            if (isActive) {
-                navMenu.classList.remove('active');
-                menuOverlay.classList.remove('active');
-                document.body.style.overflow = '';
-            } else {
-                navMenu.classList.add('active');
-                menuOverlay.classList.add('active');
-                document.body.style.overflow = 'hidden';
-            }
+        // Simple toggle function
+        function openMenu() {
+            navMenu.classList.add('active');
+            menuOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
         }
         
-        // Toggle button click
-        navToggle.addEventListener('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            toggleMenu();
-        });
-        
-        // Close menu when clicking overlay (but NOT the menu itself)
-        menuOverlay.addEventListener('click', function(e) {
-            // Check if click is actually on the menu (not overlay)
-            const menuRect = navMenu.getBoundingClientRect();
-            const clickX = e.clientX;
-            const clickY = e.clientY;
-            
-            // If click is within menu bounds, don't close
-            if (clickX >= menuRect.left && clickX <= menuRect.right &&
-                clickY >= menuRect.top && clickY <= menuRect.bottom) {
-                return;
-            }
-            
-            // Click is on overlay, close menu
+        function closeMenu() {
             navMenu.classList.remove('active');
             menuOverlay.classList.remove('active');
             document.body.style.overflow = '';
+        }
+        
+        // Toggle button
+        navToggle.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            if (navMenu.classList.contains('active')) {
+                closeMenu();
+            } else {
+                openMenu();
+            }
         });
         
-        // Close menu when clicking X button (top-right corner)
-        // Use mousedown to avoid interfering with link clicks
-        navMenu.addEventListener('mousedown', function(e) {
-            // Don't interfere with link clicks
-            if (e.target.tagName === 'A' || e.target.closest('a')) {
-                return;
+        // Close when clicking overlay (outside menu)
+        menuOverlay.addEventListener('click', function(e) {
+            // Only close if clicking directly on overlay, not menu
+            if (e.target === menuOverlay) {
+                closeMenu();
             }
-            
+        });
+        
+        // Close when clicking X button
+        navMenu.addEventListener('click', function(e) {
+            // Check if clicking in close button area (top-right)
             const rect = navMenu.getBoundingClientRect();
             const clickX = e.clientX - rect.left;
             const clickY = e.clientY - rect.top;
             
             // Close button area: top-right 60x60px
             if (clickX > rect.width - 60 && clickY < 60) {
-                e.preventDefault();
-                e.stopPropagation();
-                navMenu.classList.remove('active');
-                menuOverlay.classList.remove('active');
-                document.body.style.overflow = '';
+                // Make sure we're not clicking on a link
+                if (!e.target.closest('a')) {
+                    e.preventDefault();
+                    closeMenu();
+                }
             }
         });
         
-        // Also handle touch for mobile
-        navMenu.addEventListener('touchstart', function(e) {
-            if (e.target.tagName === 'A' || e.target.closest('a')) {
-                return;
-            }
-            
-            const rect = navMenu.getBoundingClientRect();
-            const touch = e.touches[0];
-            const clickX = touch.clientX - rect.left;
-            const clickY = touch.clientY - rect.top;
-            
-            if (clickX > rect.width - 60 && clickY < 60) {
-                e.preventDefault();
-                navMenu.classList.remove('active');
-                menuOverlay.classList.remove('active');
-                document.body.style.overflow = '';
-            }
-        });
-        
-        // Handle dropdown toggles on mobile
+        // Handle dropdown toggles
         const dropdownToggles = document.querySelectorAll('.nav-dropdown > a');
         dropdownToggles.forEach(toggle => {
             toggle.addEventListener('click', function(e) {
@@ -217,35 +185,24 @@
                     const href = this.getAttribute('href');
                     if (href === '#' || href.startsWith('#services') || href.startsWith('#staff-augmentation')) {
                         e.preventDefault();
-                        e.stopPropagation();
+                        const dropdown = this.parentElement;
+                        dropdown.classList.toggle('active');
                     }
-                    const dropdown = this.parentElement;
-                    dropdown.classList.toggle('active');
                 }
             });
         });
         
-        // Close menu when clicking regular navigation links
-        // Use event delegation to catch all link clicks
-        navMenu.addEventListener('click', function(e) {
-            const link = e.target.closest('a');
-            if (!link) return;
-            
-            // Don't close if it's a dropdown toggle
-            if (link.parentElement.classList.contains('nav-dropdown') && 
-                (link.getAttribute('href') === '#' || 
-                 link.getAttribute('href')?.startsWith('#services') || 
-                 link.getAttribute('href')?.startsWith('#staff-augmentation'))) {
-                return;
-            }
-            
-            // For all other links, close menu after navigation
-            setTimeout(function() {
-                navMenu.classList.remove('active');
-                menuOverlay.classList.remove('active');
-                document.body.style.overflow = '';
-            }, 150);
-        }, true); // Use capture phase
+        // Close menu when clicking regular links
+        const allLinks = document.querySelectorAll('.nav-menu a');
+        allLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                // Don't close if it's a dropdown toggle
+                const href = this.getAttribute('href');
+                if (href !== '#' && !href.startsWith('#services') && !href.startsWith('#staff-augmentation')) {
+                    setTimeout(closeMenu, 100);
+                }
+            });
+        });
         
         // Set active menu item
         const currentPath = window.location.pathname;
@@ -270,6 +227,7 @@
                             top: offsetTop,
                             behavior: 'smooth'
                         });
+                        closeMenu();
                     }
                 }
             });

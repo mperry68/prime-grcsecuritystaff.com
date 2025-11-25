@@ -1140,7 +1140,7 @@ body {
     opacity: 0.95;
 }
 
-/* Mobile Menu Overlay */
+/* Mobile Menu Overlay - BEHIND the menu */
 .menu-overlay {
     display: none;
     position: fixed;
@@ -1162,18 +1162,6 @@ body {
     pointer-events: auto;
 }
 
-@media (max-width: 768px) {
-    .menu-overlay {
-        z-index: 1000;
-    }
-    
-    .menu-overlay.active {
-        display: block !important;
-        opacity: 1 !important;
-        pointer-events: auto !important;
-    }
-}
-
 /* Responsive Design */
 @media (max-width: 768px) {
     .nav-menu {
@@ -1190,24 +1178,12 @@ body {
         box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
         padding: 60px 0 0 0;
         gap: 0;
-        z-index: 1002 !important;
+        z-index: 1001;
         overflow-y: auto;
-        pointer-events: auto !important;
-        visibility: hidden;
     }
 
     .nav-menu.active {
-        left: 0 !important;
-        visibility: visible !important;
-        pointer-events: auto !important;
-        z-index: 1002 !important;
-    }
-    
-    .nav-menu li,
-    .nav-menu a {
-        pointer-events: auto !important;
-        position: relative;
-        z-index: 1;
+        left: 0;
     }
 
     .nav-menu::after {
