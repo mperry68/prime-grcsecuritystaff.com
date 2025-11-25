@@ -6,14 +6,15 @@ document.addEventListener('DOMContentLoaded', function() {
             initializeNavigation();
         }
     }, 200);
-    // Determine the correct base path based on current location
-    const getBasePath = function() {
-        const path = window.location.pathname;
-        // If we're in a subdirectory (like /blog/), go up one level
-        if (path.split('/').filter(p => p && !p.includes('.html')).length > 1) {
-            return '../';
+
+    const getBasePath = () => {
+        const pathSegments = window.location.pathname.split('/').filter(segment => segment !== '');
+        // If the current path is a subdirectory (e.g., /blog/post.html), we need to go up one level
+        // If it's a root page (e.g., /index.html), we stay at root
+        if (pathSegments.length > 1 && pathSegments[pathSegments.length - 1].includes('.html')) {
+            return '../'; // For files in subdirectories like /blog/post.html
         }
-        return '/';
+        return '/'; // For files in the root or main directories like /blog.html, /index.html
     };
     
     const basePath = getBasePath();
@@ -149,58 +150,36 @@ function initializeNavigationWithElements(navToggle, navMenu) {
         }
     }
     
-    // Prevent double-firing on mobile (touch + click)
-    let touchHandled = false;
-    
-    navToggle.addEventListener('touchstart', function() {
-        touchHandled = false;
-    }, { passive: true });
-    
-    navToggle.addEventListener('touchend', function(e) {
-        if (!touchHandled) {
-            touchHandled = true;
-            e.preventDefault();
-            e.stopPropagation();
-            toggleMenu();
-        }
-    });
-    
-    // Click handler (for desktop and as fallback)
+    // Toggle button click handler
     navToggle.addEventListener('click', function(e) {
-        if (touchHandled) {
-            e.preventDefault();
-            e.stopPropagation();
-            touchHandled = false;
-            return;
-        }
         e.preventDefault();
         e.stopPropagation();
         toggleMenu();
     });
 
     // Close menu when clicking overlay
-    menuOverlay.addEventListener('click', function() {
+    menuOverlay.addEventListener('click', function(e) {
+        // Don't close if clicking on the menu itself
+        if (e.target === navMenu || navMenu.contains(e.target)) {
+            return;
+        }
         navMenu.classList.remove('active');
         menuOverlay.classList.remove('active');
         document.body.style.overflow = '';
     });
 
-    // Close menu when clicking the X button area (top-right corner)
-    // Only handle clicks that are NOT on links or interactive elements
+    // Close menu when clicking the X button (top-right corner)
     navMenu.addEventListener('click', function(e) {
-        const target = e.target;
-        
-        // If clicking on a link or any element inside a link, let it handle the click
-        if (target.tagName === 'A' || target.closest('a')) {
-            return; // Don't interfere with link clicks
+        // Don't interfere with link clicks
+        if (e.target.tagName === 'A' || e.target.closest('a')) {
+            return;
         }
         
-        // Check if clicking in the close button area (top-right corner)
+        // Check if clicking in close button area (top-right 60x60px)
         const rect = navMenu.getBoundingClientRect();
         const clickX = e.clientX - rect.left;
         const clickY = e.clientY - rect.top;
         
-        // Close button area: top-right 60x60px
         if (clickX > rect.width - 60 && clickY < 60) {
             e.preventDefault();
             e.stopPropagation();
@@ -210,14 +189,14 @@ function initializeNavigationWithElements(navToggle, navMenu) {
         }
     });
 
-    // Handle dropdown menus on mobile
+    // Handle dropdown toggles on mobile
     const dropdownToggles = document.querySelectorAll('.nav-dropdown > a');
     dropdownToggles.forEach(toggle => {
         toggle.addEventListener('click', function(e) {
             if (window.innerWidth <= 768) {
-                // Only prevent default if this is a dropdown toggle (has href="#")
                 const href = this.getAttribute('href');
-                if (href && (href === '#' || href.startsWith('#services') || href.startsWith('#staff-augmentation'))) {
+                // Only prevent default for anchor-only dropdown toggles
+                if (href === '#' || href.startsWith('#services') || href.startsWith('#staff-augmentation')) {
                     e.preventDefault();
                     e.stopPropagation();
                 }
@@ -227,12 +206,11 @@ function initializeNavigationWithElements(navToggle, navMenu) {
         });
     });
 
-    // Close mobile menu when clicking on a link (non-dropdown links)
-    const navLinks = document.querySelectorAll('.nav-menu > li > a:not(.nav-dropdown > a), .dropdown-menu a');
-    navLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-            // Don't prevent default - let the link work normally
-            // Just close the menu after a short delay to allow navigation
+    // Close menu when clicking on regular navigation links
+    const regularNavLinks = document.querySelectorAll('.nav-menu > li > a:not(.nav-dropdown > a), .dropdown-menu a');
+    regularNavLinks.forEach(link => {
+        link.addEventListener('click', function() {
+            // Close menu after a short delay to allow navigation
             setTimeout(function() {
                 navMenu.classList.remove('active');
                 menuOverlay.classList.remove('active');
@@ -269,4 +247,3 @@ function initializeNavigationWithElements(navToggle, navMenu) {
         });
     });
 }
-

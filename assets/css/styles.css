@@ -1180,7 +1180,7 @@ body {
         gap: 0;
         z-index: 1001;
         overflow-y: auto;
-        pointer-events: auto;
+        pointer-events: auto !important;
     }
 
     .nav-menu.active {
@@ -1241,8 +1241,10 @@ body {
         font-weight: 500;
         transition: background 0.2s, color 0.2s;
         cursor: pointer;
-        pointer-events: auto;
+        pointer-events: auto !important;
         -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
+        position: relative;
+        z-index: 1;
     }
 
     .nav-menu > li > a:hover,
@@ -1288,8 +1290,10 @@ body {
         padding: 1rem 1.5rem 1rem 3rem;
         color: var(--text-color);
         cursor: pointer;
-        pointer-events: auto;
+        pointer-events: auto !important;
         -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
+        position: relative;
+        z-index: 1;
     }
 
     .dropdown-menu a:hover {
