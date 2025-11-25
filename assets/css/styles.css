@@ -1150,11 +1150,13 @@ body {
     opacity: 0;
     transition: opacity 0.3s;
     cursor: pointer;
+    pointer-events: none;
 }
 
 .menu-overlay.active {
     display: block;
     opacity: 1;
+    pointer-events: auto;
 }
 
 /* Responsive Design */
@@ -1175,10 +1177,12 @@ body {
         gap: 0;
         z-index: 1001;
         overflow-y: auto;
+        pointer-events: auto;
     }
 
     .nav-menu.active {
         left: 0;
+        pointer-events: auto;
     }
 
     .nav-menu::after {
@@ -1200,6 +1204,20 @@ body {
         background: rgba(255, 255, 255, 0.1);
         border-radius: 50%;
         transition: background 0.2s;
+        pointer-events: none; /* Let the click handler on navMenu handle it */
+    }
+    
+    /* Create a clickable area for the close button */
+    .nav-menu::before {
+        content: '';
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        width: 50px;
+        height: 50px;
+        z-index: 1002;
+        cursor: pointer;
+        pointer-events: auto;
     }
 
     .nav-menu::after:hover {
@@ -1219,6 +1237,9 @@ body {
         text-decoration: none;
         font-weight: 500;
         transition: background 0.2s, color 0.2s;
+        cursor: pointer;
+        pointer-events: auto;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
     }
 
     .nav-menu > li > a:hover,
@@ -1235,6 +1256,8 @@ body {
         display: flex;
         justify-content: space-between;
         align-items: center;
+        cursor: pointer;
+        pointer-events: auto;
     }
 
     .dropdown-menu {
@@ -1261,6 +1284,9 @@ body {
     .dropdown-menu a {
         padding: 1rem 1.5rem 1rem 3rem;
         color: var(--text-color);
+        cursor: pointer;
+        pointer-events: auto;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
     }
 
     .dropdown-menu a:hover {

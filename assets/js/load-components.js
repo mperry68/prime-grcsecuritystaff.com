@@ -185,15 +185,22 @@ function initializeNavigationWithElements(navToggle, navMenu) {
         document.body.style.overflow = '';
     });
 
-    // Close menu when clicking the X button (::after pseudo-element)
-    // Use event delegation on the nav-menu to catch clicks on the ::after element
+    // Close menu when clicking the X button area (top-right corner)
+    // Only handle clicks that are NOT on links or interactive elements
     navMenu.addEventListener('click', function(e) {
-        // Check if clicking on the close button area (top right where ::after X is)
+        const target = e.target;
+        
+        // If clicking on a link or any element inside a link, let it handle the click
+        if (target.tagName === 'A' || target.closest('a')) {
+            return; // Don't interfere with link clicks
+        }
+        
+        // Check if clicking in the close button area (top-right corner)
         const rect = navMenu.getBoundingClientRect();
         const clickX = e.clientX - rect.left;
         const clickY = e.clientY - rect.top;
         
-        // Close button is in top right (within 60px from right, 60px from top)
+        // Close button area: top-right 60x60px
         if (clickX > rect.width - 60 && clickY < 60) {
             e.preventDefault();
             e.stopPropagation();
@@ -208,20 +215,29 @@ function initializeNavigationWithElements(navToggle, navMenu) {
     dropdownToggles.forEach(toggle => {
         toggle.addEventListener('click', function(e) {
             if (window.innerWidth <= 768) {
-                e.preventDefault();
+                // Only prevent default if this is a dropdown toggle (has href="#")
+                const href = this.getAttribute('href');
+                if (href && (href === '#' || href.startsWith('#services') || href.startsWith('#staff-augmentation'))) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                }
                 const dropdown = this.parentElement;
                 dropdown.classList.toggle('active');
             }
         });
     });
 
-    // Close mobile menu when clicking on a link
-    const navLinks = document.querySelectorAll('.nav-menu a:not(.nav-dropdown > a)');
+    // Close mobile menu when clicking on a link (non-dropdown links)
+    const navLinks = document.querySelectorAll('.nav-menu > li > a:not(.nav-dropdown > a), .dropdown-menu a');
     navLinks.forEach(link => {
-        link.addEventListener('click', function() {
-            navMenu.classList.remove('active');
-            menuOverlay.classList.remove('active');
-            document.body.style.overflow = '';
+        link.addEventListener('click', function(e) {
+            // Don't prevent default - let the link work normally
+            // Just close the menu after a short delay to allow navigation
+            setTimeout(function() {
+                navMenu.classList.remove('active');
+                menuOverlay.classList.remove('active');
+                document.body.style.overflow = '';
+            }, 100);
         });
     });
 
