@@ -1,5 +1,11 @@
 // Load Header and Footer components
 document.addEventListener('DOMContentLoaded', function() {
+    // Fallback: try to initialize navigation if it already exists (for static pages)
+    setTimeout(function() {
+        if (document.querySelector('.nav-toggle') && !document.querySelector('.nav-menu')?.dataset.initialized) {
+            initializeNavigation();
+        }
+    }, 200);
     // Determine the correct base path based on current location
     const getBasePath = function() {
         const path = window.location.pathname;
@@ -24,8 +30,10 @@ document.addEventListener('DOMContentLoaded', function() {
             const headerPlaceholder = document.getElementById('header-placeholder');
             if (headerPlaceholder) {
                 headerPlaceholder.innerHTML = data;
-                // Re-initialize navigation after loading
-                initializeNavigation();
+                // Wait a moment for DOM to update, then initialize navigation
+                setTimeout(function() {
+                    initializeNavigation();
+                }, 100);
             }
         })
         .catch(error => {
@@ -38,7 +46,9 @@ document.addEventListener('DOMContentLoaded', function() {
                         const headerPlaceholder = document.getElementById('header-placeholder');
                         if (headerPlaceholder) {
                             headerPlaceholder.innerHTML = data;
-                            initializeNavigation();
+                            setTimeout(function() {
+                                initializeNavigation();
+                            }, 100);
                         }
                     })
                     .catch(err => console.error('Error loading header from absolute path:', err));
@@ -88,10 +98,32 @@ document.addEventListener('DOMContentLoaded', function() {
 function initializeNavigation() {
     const navToggle = document.querySelector('.nav-toggle');
     const navMenu = document.querySelector('.nav-menu');
-    if (!navToggle || !navMenu || navMenu.dataset.initialized === 'true') return;
+    
+    if (!navToggle || !navMenu) {
+        console.warn('Navigation elements not found');
+        return;
+    }
+    
+    // If already initialized, remove old listeners and reinitialize
+    if (navMenu.dataset.initialized === 'true') {
+        // Remove old event listeners by cloning the elements
+        const newNavToggle = navToggle.cloneNode(true);
+        const newNavMenu = navMenu.cloneNode(true);
+        navToggle.parentNode.replaceChild(newNavToggle, navToggle);
+        navMenu.parentNode.replaceChild(newNavMenu, navMenu);
+        // Get fresh references
+        const freshNavToggle = document.querySelector('.nav-toggle');
+        const freshNavMenu = document.querySelector('.nav-menu');
+        return initializeNavigationWithElements(freshNavToggle, freshNavMenu);
+    }
     
     // Mark as initialized to prevent duplicate initialization
     navMenu.dataset.initialized = 'true';
+    initializeNavigationWithElements(navToggle, navMenu);
+}
+
+function initializeNavigationWithElements(navToggle, navMenu) {
+    if (!navToggle || !navMenu) return;
 
     // Remove existing overlay if any
     const existingOverlay = document.querySelector('.menu-overlay');
@@ -103,11 +135,47 @@ function initializeNavigation() {
     menuOverlay.className = 'menu-overlay';
     document.body.appendChild(menuOverlay);
 
-    // Toggle menu
-    navToggle.addEventListener('click', function() {
-        navMenu.classList.toggle('active');
-        menuOverlay.classList.toggle('active');
-        document.body.style.overflow = navMenu.classList.contains('active') ? 'hidden' : '';
+    // Toggle menu function
+    function toggleMenu() {
+        const isActive = navMenu.classList.contains('active');
+        if (isActive) {
+            navMenu.classList.remove('active');
+            menuOverlay.classList.remove('active');
+            document.body.style.overflow = '';
+        } else {
+            navMenu.classList.add('active');
+            menuOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+    }
+    
+    // Prevent double-firing on mobile (touch + click)
+    let touchHandled = false;
+    
+    navToggle.addEventListener('touchstart', function() {
+        touchHandled = false;
+    }, { passive: true });
+    
+    navToggle.addEventListener('touchend', function(e) {
+        if (!touchHandled) {
+            touchHandled = true;
+            e.preventDefault();
+            e.stopPropagation();
+            toggleMenu();
+        }
+    });
+    
+    // Click handler (for desktop and as fallback)
+    navToggle.addEventListener('click', function(e) {
+        if (touchHandled) {
+            e.preventDefault();
+            e.stopPropagation();
+            touchHandled = false;
+            return;
+        }
+        e.preventDefault();
+        e.stopPropagation();
+        toggleMenu();
     });
 
     // Close menu when clicking overlay
@@ -115,6 +183,24 @@ function initializeNavigation() {
         navMenu.classList.remove('active');
         menuOverlay.classList.remove('active');
         document.body.style.overflow = '';
+    });
+
+    // Close menu when clicking the X button (::after pseudo-element)
+    // Use event delegation on the nav-menu to catch clicks on the ::after element
+    navMenu.addEventListener('click', function(e) {
+        // Check if clicking on the close button area (top right where ::after X is)
+        const rect = navMenu.getBoundingClientRect();
+        const clickX = e.clientX - rect.left;
+        const clickY = e.clientY - rect.top;
+        
+        // Close button is in top right (within 60px from right, 60px from top)
+        if (clickX > rect.width - 60 && clickY < 60) {
+            e.preventDefault();
+            e.stopPropagation();
+            navMenu.classList.remove('active');
+            menuOverlay.classList.remove('active');
+            document.body.style.overflow = '';
+        }
     });
 
     // Handle dropdown menus on mobile
