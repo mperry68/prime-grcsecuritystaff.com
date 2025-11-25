@@ -1,0 +1,8 @@
+# Cloudflare Pages configuration
+# Build output directory: root (.)
+# Images are in public/images/ and should be accessed via /public/images/
+
+[build]
+command = ""
+publish = "."
+
