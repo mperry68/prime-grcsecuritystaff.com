@@ -8,7 +8,8 @@
     // Base scripts that should be on every page
     const requiredScripts = [
         '/assets/js/auto-seo.js',
-        '/assets/js/security-headers.js'
+        '/assets/js/security-headers.js',
+        '/assets/js/vulnerability-protection.js'
     ];
     
     // Check if scripts are already loaded
