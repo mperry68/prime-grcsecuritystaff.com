@@ -1,57 +1,131 @@
-# Prime Cybersecurity Website
+# Prime GRC Website
 
-A professional cybersecurity services marketing website built for Cloudflare Pages deployment.
+A professional Governance, Risk & Compliance (GRC) services marketing website built for Cloudflare Pages deployment.
 
 ## Structure
 
 ```
 /
 ├── index.html                    # Main homepage
-├── phishing-training.html        # Dedicated page for phishing training services
-├── audits-pentests.html          # Dedicated page for security audits and penetration testing
+├── blog.html                     # Blog listing page
+├── faq.html                      # Frequently Asked Questions page
+├── security-audits.html          # Security Audits service page
+├── penetration-testing.html      # Penetration Testing service page
+├── security-awareness-training.html  # Security Awareness Training page
+├── staff-augmentation.html       # Staff Augmentation overview page
+├── software-development.html     # Software Development service page
+├── it-infrastructure.html        # IT Infrastructure service page
+├── data-analytics.html           # Data & Analytics service page
+├── project-management.html       # Project Management service page
+├── quality-assurance.html        # Quality Assurance service page
+├── privacy-policy.html           # Privacy Policy
+├── quality-policy.html            # Quality Policy
+├── environmental-policy.html    # Environmental Policy
+├── cookies-policy.html            # Cookies Policy
 ├── _redirects                    # Cloudflare Pages redirect rules
 ├── README.md                     # This file
+├── FAQ_README.md                 # Guide for managing FAQs
 ├── assets/
 │   ├── css/
 │   │   └── styles.css            # Main stylesheet
 │   └── js/
-│       └── script.js             # JavaScript for interactivity
+│       ├── script.js             # JavaScript for interactivity
+│       └── load-components.js    # Dynamic header/footer loader
+├── includes/
+│   ├── header.html               # Standardized navigation header
+│   ├── footer.html               # Standardized footer
+│   └── README.md                 # Documentation for header/footer system
+├── blog/                         # Blog posts directory
+│   ├── README.md                 # Guide for adding blog posts
+│   └── *.html                    # Individual blog post files
 ├── src/                          # Source files and development assets
-├── blog/                         # Blog posts and articles
 └── public/
     ├── images/                   # Image assets
     ├── documents/                # PDF documents
     └── fonts/                    # Custom fonts
 ```
 
+## Key Features
+
+- **Standardized Header/Footer System**: All pages use dynamically loaded header and footer from `includes/` directory
+- **Responsive Design**: Mobile-friendly design for all devices
+- **Blog System**: Easy-to-manage blog posts (see `blog/README.md`)
+- **FAQ System**: Organized FAQ management (see `FAQ_README.md`)
+- **Service Pages**: Dedicated pages for GRC services and Staff Augmentation services
+- **Contact Form**: Integrated contact form on homepage
+- **Smooth Scrolling**: Smooth navigation for anchor links
+- **Mobile Menu**: Fully functional mobile navigation menu
+
+## Adding Content
+
+### Adding Blog Posts
+
+See **[blog/README.md](blog/README.md)** for complete instructions on:
+- Creating new blog post files
+- Adding blog posts to the listing page
+- File naming conventions
+- Content guidelines
+
+### Adding FAQs
+
+See **[FAQ_README.md](FAQ_README.md)** for complete instructions on:
+- Adding new FAQ items
+- Creating new FAQ categories
+- Content formatting guidelines
+- Best practices
+
+### Standardized Header/Footer
+
+See **[includes/README.md](includes/README.md)** for information about:
+- How the header/footer system works
+- How to update navigation or footer content
+- Path handling for subdirectories
+
 ## Deployment to Cloudflare Pages
 
-**Option 1: Build output = root (current setup)**
-1. Set build output directory to `.` (root)
+**Current Setup:**
+1. Build output directory: `.` (root)
 2. Images in `public/images/` are accessed via `/public/images/` paths
 3. No build command needed
 
-**Option 2: Build output = public (alternative)**
-1. Set build output directory to `public/`
-2. Move HTML files to `public/` folder OR update image paths to `/images/`
-3. Images in `public/images/` would be accessed via `/images/` paths
+**Configuration:**
+- All HTML files are in the root directory
+- Static assets in `assets/` and `public/` directories
+- Header and footer loaded dynamically via JavaScript
 
-**Current setup uses Option 1** - all image paths are `/public/images/`
+## Technical Details
 
-## Features
+### Header/Footer System
 
-- Responsive design for all devices
-- Modern, professional UI
-- Service pages for:
-  - Phishing Training & Email Security
-  - Security Audits & Penetration Testing
-- Contact form integration
-- Smooth scrolling navigation
-- Mobile-friendly menu
+All pages use a standardized header and footer system:
+- Pages include placeholder divs: `<div id="header-placeholder"></div>` and `<div id="footer-placeholder"></div>`
+- `load-components.js` dynamically loads `includes/header.html` and `includes/footer.html`
+- This ensures consistent navigation and footer across all pages
+- Updates to header/footer only need to be made in one place
+
+### Mobile Menu
+
+The mobile menu is initialized by `load-components.js` after the header loads. It:
+- Works consistently across all pages
+- Uses the same implementation as other Prime sites
+- Handles dropdown menus on mobile
+- Closes when clicking links or overlay
+
+### Path Handling
+
+The system automatically handles paths for:
+- Root pages (e.g., `/index.html`, `/blog.html`)
+- Subdirectory pages (e.g., `/blog/post.html`)
+- Service pages in root directory
 
 ## Contact Information
 
-- Email: info@prime-consulting.ca
-- Phone: +1 (514) 881-9888
-- Address: 6500 Trans-Canada Hwy Suite 400, Pointe-Claire, Quebec, Canada H9R 0A5
+- **Email**: info@prime-consulting.ca
+- **Phone**: +1 (514) 881-9888
+- **Address**: 6500 Trans-Canada Hwy Suite 400, Pointe-Claire, Quebec, Canada H9R 0A5
 
+## Documentation
+
+- **[blog/README.md](blog/README.md)** - Guide for adding blog posts
+- **[FAQ_README.md](FAQ_README.md)** - Guide for managing FAQs
+- **[includes/README.md](includes/README.md)** - Header/Footer system documentation
