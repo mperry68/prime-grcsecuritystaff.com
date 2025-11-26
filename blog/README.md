@@ -42,6 +42,9 @@ Copy the structure from an existing blog post. Your blog post HTML file should f
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../assets/css/styles.css">
     <link rel="icon" type="image/png" href="/public/images/fav.png">
+    
+    <!-- Auto-Load SEO and Security Scripts -->
+    <script src="../assets/js/load-head.js"></script>
 </head>
 <body>
     <!-- Header placeholder - will be loaded by load-components.js -->
@@ -68,6 +71,7 @@ Copy the structure from an existing blog post. Your blog post HTML file should f
     <div id="footer-placeholder"></div>
 
     <script src="../assets/js/load-components.js"></script>
+    <script src="../assets/js/language-switcher.js"></script>
     <script src="../assets/js/script.js"></script>
 </body>
 </html>
@@ -84,6 +88,7 @@ Copy the structure from an existing blog post. Your blog post HTML file should f
 
 3. **JavaScript Paths**: Use:
    - `../assets/js/load-components.js` (required for header/footer)
+   - `../assets/js/language-switcher.js` (required for language switching)
    - `../assets/js/script.js` (for other functionality)
 
 4. **Image Paths**: Use absolute paths starting with `/`:
@@ -151,7 +156,7 @@ Here's a complete example of a blog card entry in `blog.html`:
 - [ ] Created HTML file in `blog/` directory with proper filename
 - [ ] Used header and footer placeholders (not static nav/footer)
 - [ ] Set correct CSS path (`../assets/css/styles.css`)
-- [ ] Set correct JavaScript paths (`../assets/js/load-components.js` and `../assets/js/script.js`)
+- [ ] Set correct JavaScript paths (`../assets/js/load-components.js`, `../assets/js/language-switcher.js`, and `../assets/js/script.js`)
 - [ ] Added proper meta title and description
 - [ ] Added blog post entry to `blog.html` blog-grid
 - [ ] Used proper date format and category

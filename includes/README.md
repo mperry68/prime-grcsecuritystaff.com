@@ -35,6 +35,7 @@ The header and footer are loaded dynamically using JavaScript (`load-components.
     <div id="footer-placeholder"></div>
 
     <script src="assets/js/load-components.js"></script>
+    <script src="assets/js/language-switcher.js"></script>
     <script src="assets/js/script.js"></script>
 </body>
 </html>
@@ -58,6 +59,7 @@ The header and footer are loaded dynamically using JavaScript (`load-components.
     <div id="footer-placeholder"></div>
 
     <script src="../assets/js/load-components.js"></script>
+    <script src="../assets/js/language-switcher.js"></script>
     <script src="../assets/js/script.js"></script>
 </body>
 </html>
@@ -129,7 +131,7 @@ After the header loads, `load-components.js` automatically:
 ## Important Notes
 
 1. **Always use placeholders**: Never include static `<nav>` or `<footer>` HTML in pages - always use the placeholder divs
-2. **Script order matters**: Include `load-components.js` before `script.js`
+2. **Script order matters**: Include scripts in this order: `load-components.js`, `language-switcher.js`, then `script.js`
 3. **Path consistency**: The script handles paths automatically, but ensure your page structure matches the examples
 4. **Logo paths**: Footer logo paths are automatically adjusted for subdirectories
 

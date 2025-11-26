@@ -6,7 +6,10 @@ A professional Governance, Risk & Compliance (GRC) services marketing website bu
 
 ```
 /
-├── index.html                    # Main homepage
+├── index.html                    # Main homepage (English)
+├── fr/                           # French pages directory
+│   ├── index.html                # Homepage (French)
+│   └── *.html                    # Other French pages
 ├── blog.html                     # Blog listing page
 ├── faq.html                      # Frequently Asked Questions page
 ├── security-audits.html          # Security Audits service page
@@ -24,13 +27,21 @@ A professional Governance, Risk & Compliance (GRC) services marketing website bu
 ├── cookies-policy.html            # Cookies Policy
 ├── _redirects                    # Cloudflare Pages redirect rules
 ├── README.md                     # This file
-├── FAQ_README.md                 # Guide for managing FAQs
+├── documentation/                # Documentation files
+│   ├── SITE_ARCHITECTURE.md      # Complete architecture guide
+│   ├── FAQ_README.md             # Guide for managing FAQs
+│   └── *.md                       # Other documentation
 ├── assets/
 │   ├── css/
 │   │   └── styles.css            # Main stylesheet
 │   └── js/
 │       ├── script.js             # JavaScript for interactivity
-│       └── load-components.js    # Dynamic header/footer loader
+│       ├── load-components.js    # Dynamic header/footer loader
+│       ├── language-switcher.js  # Bilingual language switching
+│       ├── load-head.js          # Auto-load SEO and security scripts
+│       ├── auto-seo.js           # SEO enhancement
+│       ├── security-headers.js   # Security headers
+│       └── vulnerability-protection.js # Vulnerability protection
 ├── includes/
 │   ├── header.html               # Standardized navigation header
 │   ├── footer.html               # Standardized footer
@@ -47,10 +58,13 @@ A professional Governance, Risk & Compliance (GRC) services marketing website bu
 
 ## Key Features
 
+- **Bilingual Support**: Full English/French support with automatic language detection and switching
 - **Standardized Header/Footer System**: All pages use dynamically loaded header and footer from `includes/` directory
 - **Responsive Design**: Mobile-friendly design for all devices
 - **Blog System**: Easy-to-manage blog posts (see `blog/README.md`)
 - **FAQ System**: Organized FAQ management (see `FAQ_README.md`)
+- **SEO Enhancement**: Automatic SEO meta tag generation and enhancement
+- **Security**: Built-in security headers and vulnerability protection
 - **Service Pages**: Dedicated pages for GRC services and Staff Augmentation services
 - **Contact Form**: Integrated contact form on homepage
 - **Smooth Scrolling**: Smooth navigation for anchor links
@@ -111,11 +125,21 @@ The mobile menu is initialized by `load-components.js` after the header loads. I
 - Handles dropdown menus on mobile
 - Closes when clicking links or overlay
 
+### Language Switching
+
+The site supports full bilingual (English/French) functionality:
+- Language detected from URL path (`/fr/` prefix = French)
+- Language preference stored in `localStorage`
+- Automatic navigation link updates based on current language
+- Graceful fallback to English if French page doesn't exist
+- Language switcher in header (EN | FR)
+
 ### Path Handling
 
 The system automatically handles paths for:
 - Root pages (e.g., `/index.html`, `/blog.html`)
 - Subdirectory pages (e.g., `/blog/post.html`)
+- French pages (e.g., `/fr/index.html`, `/fr/about.html`)
 - Service pages in root directory
 
 ## Contact Information
@@ -126,6 +150,7 @@ The system automatically handles paths for:
 
 ## Documentation
 
+- **[documentation/SITE_ARCHITECTURE.md](documentation/SITE_ARCHITECTURE.md)** - Complete site architecture and how-to guides
 - **[blog/README.md](blog/README.md)** - Guide for adding blog posts
-- **[FAQ_README.md](FAQ_README.md)** - Guide for managing FAQs
+- **[documentation/FAQ_README.md](documentation/FAQ_README.md)** - Guide for managing FAQs
 - **[includes/README.md](includes/README.md)** - Header/Footer system documentation
