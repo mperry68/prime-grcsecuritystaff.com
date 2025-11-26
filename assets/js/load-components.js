@@ -184,7 +184,7 @@
             }
         });
         
-        // Smooth scrolling for anchor links - EXACTLY like working version
+        // Smooth scrolling for anchor links - handle contact link specially
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 const href = this.getAttribute('href');
@@ -192,11 +192,15 @@
                     e.preventDefault();
                     const target = document.querySelector(href);
                     if (target) {
+                        // Target exists on current page, scroll to it
                         const offsetTop = target.offsetTop - 80;
                         window.scrollTo({
                             top: offsetTop,
                             behavior: 'smooth'
                         });
+                    } else if (href === '#contact') {
+                        // Contact section doesn't exist on this page, navigate to home page
+                        window.location.href = '/#contact';
                     }
                 }
             });
