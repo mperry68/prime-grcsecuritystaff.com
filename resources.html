@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resources - Prime Consulting Group</title>
+    <meta name="description" content="Download expert-created guides, templates, and case studies to help your firm adopt AI tools responsibly and achieve compliance.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="icon" type="image/png" href="/public/images/fav.png">
+    <style>
+        .download-section {
+            margin: 3rem 0;
+        }
+        .download-intro {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 3rem;
+        }
+        .download-intro h2 {
+            font-size: 2.5rem;
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+        }
+        .download-intro p {
+            font-size: 1.125rem;
+            line-height: 1.8;
+            color: var(--text-color);
+        }
+        .downloads-list {
+            margin: 2rem 0;
+        }
+        .download-item {
+            background: var(--white);
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            transition: box-shadow 0.3s ease;
+        }
+        .download-item:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .download-item h3 {
+            font-size: 1.5rem;
+            color: var(--secondary-color);
+            margin-bottom: 0.5rem;
+        }
+        .download-item p {
+            color: var(--text-color);
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+        .download-links {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        .download-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            background: var(--primary-color);
+            color: var(--white);
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 500;
+            transition: background 0.3s ease;
+        }
+        .download-link:hover {
+            background: var(--primary-dark);
+        }
+        .case-studies-section {
+            margin: 4rem 0;
+        }
+        .case-studies-section h2 {
+            font-size: 2.5rem;
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+        .case-study {
+            background: var(--white);
+            border-left: 4px solid var(--primary-color);
+            border-radius: 8px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        .case-study h3 {
+            font-size: 1.75rem;
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+        }
+        .case-study-meta {
+            color: #666;
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+            font-style: italic;
+        }
+        .case-study-section {
+            margin: 1.5rem 0;
+        }
+        .case-study-section h4 {
+            font-size: 1.25rem;
+            color: var(--primary-color);
+            margin-bottom: 0.75rem;
+            font-weight: 600;
+        }
+        .case-study-section p {
+            line-height: 1.8;
+            color: var(--text-color);
+        }
+        .case-study-outcome {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        .case-study-outcome h4 {
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+        }
+        .case-study-outcome ul {
+            list-style: none;
+            padding: 0;
+        }
+        .case-study-outcome li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+            line-height: 1.6;
+        }
+        .case-study-outcome li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+        @media (max-width: 768px) {
+            .download-intro h2,
+            .case-studies-section h2 {
+                font-size: 2rem;
+            }
+            .download-links {
+                flex-direction: column;
+            }
+            .download-link {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header placeholder - will be loaded by load-components.js -->
+    <div id="header-placeholder"></div>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>Resources</h1>
+            <p>Expert-created guides, templates, and case studies to help your firm succeed</p>
+        </div>
+    </section>
+
+    <!-- Resources Content -->
+    <section class="service-page-content">
+        <div class="container">
+            <div class="service-details">
+                <!-- Downloadable Guides Section -->
+                <div class="download-section">
+                    <div class="download-intro">
+                        <h2>Downloadable Guides</h2>
+                        <p>Stay compliant and confident with our expert-created resources. Each guide is designed to help law and accounting firms adopt AI tools responsibly while aligning with current regulations. Download practical templates and frameworks you can use right away — no fluff, just results.</p>
+                    </div>
+
+                    <div class="downloads-list">
+                        <div class="download-item">
+                            <h3>AI Acceptable Use Policy (AUP) Template</h3>
+                            <p>A ready-to-use policy outlining how your team can safely and ethically use AI tools like ChatGPT or Copilot.</p>
+                            <div class="download-links">
+                                <a href="/public/documents/PCG_AI_AUP_Template.pdf" class="download-link" download>
+                                    📄 AI AUP Template (EN)
+                                </a>
+                                <a href="/public/documents/PCG_Politique_UAI_Modele.pdf" class="download-link" download>
+                                    📄 AI AUP Template (FR)
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="download-item">
+                            <h3>AI Compliance Readiness Checklist</h3>
+                            <p>A step-by-step checklist to assess your firm's current AI practices and identify key gaps in governance or risk management.</p>
+                            <div class="download-links">
+                                <a href="/public/documents/AI_Compliance_Readiness_Checklist_EN_PCG.pdf" class="download-link" download>
+                                    📄 Download Compliance Checklist (EN)
+                                </a>
+                                <a href="/public/documents/FR.pdf" class="download-link" download>
+                                    📄 Télécharger la Checklist de Conformité (FR)
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="download-item">
+                            <h3>Staff Briefing Slide Deck</h3>
+                            <p>A quick training deck to help your team understand their responsibilities under your AI policy.</p>
+                            <p style="color: #666; font-style: italic;">Coming soon - Check back for updates</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Case Studies Section -->
+                <div class="case-studies-section">
+                    <h2>Case Studies</h2>
+                    <p class="section-intro" style="text-align: center; max-width: 800px; margin: 0 auto 3rem;">See how we've helped law and accounting firms achieve compliance and strengthen their security posture.</p>
+
+                    <!-- Case Study 1 -->
+                    <div class="case-study">
+                        <h3>Case Study 1 – Law Firm (Montreal, 40 Employees)</h3>
+                        <div class="case-study-meta">Montreal-based law firm | 40 employees | ISO 27001 implementation</div>
+                        
+                        <div class="case-study-section">
+                            <h4>Challenge</h4>
+                            <p>A mid-sized Montreal-based law firm faced growing pressure from enterprise clients to demonstrate formal cybersecurity compliance. They had no internal CISO, outdated policies, and no audit trail for AI use.</p>
+                        </div>
+
+                        <div class="case-study-section">
+                            <h4>Solution</h4>
+                            <p>Prime Consulting Group conducted a 3-week gap assessment and implemented an ISO 27001-aligned ISMS. We created a bilingual AI Acceptable Use Policy, ran phishing simulations, and documented internal controls for SOC 2 readiness.</p>
+                        </div>
+
+                        <div class="case-study-outcome">
+                            <h4>Outcome</h4>
+                            <ul>
+                                <li>Achieved ISO 27001 readiness in under 90 days</li>
+                                <li>Passed client security due diligence for a new $2M account</li>
+                                <li>Now runs quarterly internal audits with our virtual CISO support</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Case Study 2 -->
+                    <div class="case-study">
+                        <h3>Case Study 2 – National Accounting Firm (Toronto HQ)</h3>
+                        <div class="case-study-meta">National accounting firm | Toronto HQ | ISO 42001 implementation</div>
+                        
+                        <div class="case-study-section">
+                            <h4>Challenge</h4>
+                            <p>The firm was expanding digital services and adopting AI for financial modeling but lacked a governance framework. They were concerned about CPPA compliance and vendor risk.</p>
+                        </div>
+
+                        <div class="case-study-section">
+                            <h4>Solution</h4>
+                            <p>Prime Consulting Group helped implement ISO 42001 with an AI governance framework, cross-departmental policy training, and third-party risk assessment tools.</p>
+                        </div>
+
+                        <div class="case-study-outcome">
+                            <h4>Outcome</h4>
+                            <ul>
+                                <li>Adopted ISO 42001 controls in 60 days</li>
+                                <li>Reduced client onboarding friction by 40%</li>
+                                <li>Built a standardized risk register shared across all 5 offices</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CTA Section -->
+                <div class="cta-box" style="margin-top: 4rem;">
+                    <h2>Need Help Implementing These Frameworks?</h2>
+                    <p>Contact us today to discuss how we can help your firm achieve compliance and strengthen your security posture.</p>
+                    <a href="/#contact" class="btn btn-primary btn-large">Get Started</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer placeholder - will be loaded by load-components.js -->
+    <div id="footer-placeholder"></div>
+
+    <script src="assets/js/load-components.js"></script>
+    <script src="assets/js/script.js"></script>
+</body>
+</html>
+
