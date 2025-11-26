@@ -156,9 +156,12 @@
             const exists = await pageExists(frenchUrl);
             
             if (!exists) {
-                // French page doesn't exist, redirect to English
+                // French page doesn't exist, redirect to English but keep French preference
                 const englishUrl = currentPage === 'index.html' ? '/' : `/${currentPage}`;
-                console.log('[Language Switcher] French page does not exist, redirecting to:', englishUrl);
+                console.log('[Language Switcher] French page does not exist, redirecting to English but keeping FR preference:', englishUrl);
+                
+                // Keep French language preference so navigation continues to prefer French
+                setLanguagePreference('fr');
                 
                 // Redirect to English and show notice
                 window.location.href = englishUrl;
@@ -170,47 +173,61 @@
         }
     }
     
-    // Make navigation links language-aware
-    function updateNavigationLinks(lang) {
+    // Make navigation links language-aware with fallback checking
+    async function updateNavigationLinks(lang) {
         console.log('[Language Switcher] Updating navigation links for language:', lang);
         const navLinks = document.querySelectorAll('.nav-menu a[href^="/"]');
         console.log('[Language Switcher] Found', navLinks.length, 'navigation links');
         
         let updatedCount = 0;
-        navLinks.forEach((link, index) => {
+        
+        // Process links sequentially to check French availability
+        for (let index = 0; index < navLinks.length; index++) {
+            const link = navLinks[index];
             const href = link.getAttribute('href');
             if (!href) {
                 console.log('[Language Switcher] Link', index, 'has no href, skipping');
-                return;
+                continue;
             }
             
             // Skip external links
             if (href.startsWith('http') || href.startsWith('#')) {
                 console.log('[Language Switcher] Link', index, 'is external or anchor, skipping:', href);
-                return;
+                continue;
             }
             
             // Skip language switcher links
             if (link.classList.contains('lang-link')) {
                 console.log('[Language Switcher] Link', index, 'is language switcher, skipping:', href);
-                return;
+                continue;
             }
             
             const originalHref = href;
             // Update link based on language
             if (lang === 'fr') {
-                // Convert to French URL
+                // Convert to French URL, but check if it exists first
+                let targetHref;
                 if (href === '/' || href === '/index.html') {
-                    link.setAttribute('href', '/fr/');
-                    console.log('[Language Switcher] Updated link', index, ':', originalHref, '-> /fr/');
-                    updatedCount++;
+                    targetHref = '/fr/';
                 } else if (!href.startsWith('/fr/')) {
-                    const newHref = `/fr${href}`;
-                    link.setAttribute('href', newHref);
-                    console.log('[Language Switcher] Updated link', index, ':', originalHref, '->', newHref);
-                    updatedCount++;
+                    targetHref = `/fr${href}`;
                 } else {
                     console.log('[Language Switcher] Link', index, 'already French, no change:', href);
+                    continue;
+                }
+                
+                // Check if French page exists
+                const frenchExists = await pageExists(targetHref);
+                if (frenchExists) {
+                    link.setAttribute('href', targetHref);
+                    console.log('[Language Switcher] Updated link', index, ':', originalHref, '->', targetHref, '(French exists)');
+                    updatedCount++;
+                } else {
+                    // French doesn't exist, use English but keep preference
+                    const englishHref = href === '/' || href === '/index.html' ? '/' : href;
+                    link.setAttribute('href', englishHref);
+                    console.log('[Language Switcher] Updated link', index, ':', originalHref, '->', englishHref, '(French not available, using English)');
+                    updatedCount++;
                 }
             } else {
                 // Convert to English URL
@@ -227,7 +244,7 @@
                     console.log('[Language Switcher] Link', index, 'already English, no change:', href);
                 }
             }
-        });
+        }
         console.log('[Language Switcher] Updated', updatedCount, 'navigation links');
     }
     
@@ -246,16 +263,28 @@
         }
         
         const currentLang = getCurrentLanguage();
+        const preferredLang = getLanguagePreference();
+        // Use preferred language if we're on English page but preference is French
+        const activeLang = (currentLang === 'en' && preferredLang === 'fr') ? 'fr' : currentLang;
         const alternateUrl = getAlternateLanguageUrl();
         
         console.log('[Language Switcher] Current language:', currentLang);
+        console.log('[Language Switcher] Preferred language:', preferredLang);
+        console.log('[Language Switcher] Active language for navigation:', activeLang);
         console.log('[Language Switcher] Alternate URL:', alternateUrl);
         
-        // Update language preference
-        setLanguagePreference(currentLang);
+        // Update language preference based on current page or keep existing preference
+        if (currentLang === 'fr') {
+            setLanguagePreference('fr');
+        } else if (preferredLang === 'fr') {
+            // Keep French preference even if on English page (fallback scenario)
+            setLanguagePreference('fr');
+        } else {
+            setLanguagePreference('en');
+        }
         
-        // Update navigation links
-        updateNavigationLinks(currentLang);
+        // Update navigation links using active language (prefers French if that's the preference)
+        await updateNavigationLinks(activeLang);
         
         langLinks.forEach((link, index) => {
             const linkLang = link.getAttribute('data-lang');
@@ -304,9 +333,10 @@
         
         // Re-update navigation after a delay to catch dynamically loaded content
         console.log('[Language Switcher] Scheduling navigation link update in 500ms');
-        setTimeout(() => {
+        setTimeout(async () => {
             console.log('[Language Switcher] Re-updating navigation links');
-            updateNavigationLinks(currentLang);
+            const preferredLang = getLanguagePreference();
+            await updateNavigationLinks(preferredLang);
         }, 500);
         
         console.log('[Language Switcher] Initialization complete');
