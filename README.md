@@ -49,7 +49,6 @@ A professional Governance, Risk & Compliance (GRC) services marketing website bu
 ├── blog/                         # Blog posts directory
 │   ├── README.md                 # Guide for adding blog posts
 │   └── *.html                    # Individual blog post files
-├── src/                          # Source files and development assets
 └── public/
     ├── images/                   # Image assets
     ├── documents/                # PDF documents
