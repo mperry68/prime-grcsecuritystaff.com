@@ -86,11 +86,13 @@
     }
     
     // Check if a page exists (with better error handling)
+    // Only returns true for actual 200 OK responses, not 404s or other status codes
     async function pageExists(url) {
         console.log('[Language Switcher] Checking if page exists:', url);
         try {
             const response = await fetch(url, { method: 'HEAD' });
-            const exists = response.ok;
+            // Only consider 200 OK as existing - 404, 403, etc. mean page doesn't exist
+            const exists = response.status === 200;
             console.log('[Language Switcher] Page exists check (HEAD):', exists, 'Status:', response.status);
             return exists;
         } catch (error) {
@@ -98,7 +100,8 @@
             // If HEAD fails, try GET
             try {
                 const response = await fetch(url, { method: 'GET' });
-                const exists = response.ok;
+                // Only consider 200 OK as existing
+                const exists = response.status === 200;
                 console.log('[Language Switcher] Page exists check (GET):', exists, 'Status:', response.status);
                 return exists;
             } catch (e) {
@@ -248,6 +251,48 @@
         console.log('[Language Switcher] Updated', updatedCount, 'navigation links');
     }
     
+    // IMMEDIATE CHECK: Check if French page exists before anything else loads
+    // This runs synchronously to prevent loading resources from non-existent pages
+    async function immediateFrenchPageCheck() {
+        const currentLang = getCurrentLanguage();
+        
+        // Only check if we're on a French URL
+        if (currentLang === 'fr') {
+            const frenchUrl = window.location.pathname;
+            console.log('[Language Switcher] IMMEDIATE CHECK: On French URL, checking existence:', frenchUrl);
+            
+            try {
+                const exists = await pageExists(frenchUrl);
+                
+                if (!exists) {
+                    // French page doesn't exist, redirect to English immediately
+                    const currentPage = getCurrentPage();
+                    const englishUrl = currentPage === 'index.html' ? '/' : `/${currentPage}`;
+                    console.log('[Language Switcher] IMMEDIATE CHECK: French page does not exist, redirecting to:', englishUrl);
+                    
+                    // Keep French language preference so navigation continues to prefer French
+                    setLanguagePreference('fr');
+                    
+                    // Redirect immediately - this will stop all other resource loading
+                    window.location.replace(englishUrl);
+                    return true; // Indicates redirect happened
+                } else {
+                    console.log('[Language Switcher] IMMEDIATE CHECK: French page exists, continuing');
+                }
+            } catch (error) {
+                console.error('[Language Switcher] IMMEDIATE CHECK: Error checking page existence:', error);
+                // On error, assume page doesn't exist and redirect
+                const currentPage = getCurrentPage();
+                const englishUrl = currentPage === 'index.html' ? '/' : `/${currentPage}`;
+                console.log('[Language Switcher] IMMEDIATE CHECK: Error occurred, redirecting to:', englishUrl);
+                setLanguagePreference('fr');
+                window.location.replace(englishUrl);
+                return true;
+            }
+        }
+        return false; // No redirect needed
+    }
+    
     // Initialize language switcher
     async function initLanguageSwitcher() {
         console.log('[Language Switcher] Initializing language switcher...');
@@ -328,9 +373,6 @@
             });
         });
         
-        // Check if we need to show fallback notice
-        await checkFrenchPageExists();
-        
         // Re-update navigation after a delay to catch dynamically loaded content
         console.log('[Language Switcher] Scheduling navigation link update in 500ms');
         setTimeout(async () => {
@@ -363,7 +405,35 @@
         initLanguageSwitcher();
     });
     
-    console.log('[Language Switcher] Starting initialization');
-    init();
+    // IMMEDIATE CHECK: Run this first, before anything else
+    // This runs synchronously when the script is parsed, before DOM or any other scripts
+    (function() {
+        const currentLang = getCurrentLanguage();
+        
+        // Only check if we're on a French URL
+        if (currentLang === 'fr') {
+            const frenchUrl = window.location.pathname;
+            console.log('[Language Switcher] IMMEDIATE SYNC CHECK: On French URL:', frenchUrl);
+            
+            // Start the async check immediately (don't wait for it)
+            immediateFrenchPageCheck().then(redirected => {
+                if (!redirected) {
+                    // Only initialize if we didn't redirect
+                    console.log('[Language Switcher] No redirect needed, starting normal initialization');
+                    init();
+                } else {
+                    console.log('[Language Switcher] Redirect occurred, skipping normal initialization');
+                }
+            }).catch(error => {
+                console.error('[Language Switcher] Error in immediate check:', error);
+                // On error, still initialize normally
+                init();
+            });
+        } else {
+            // Not on French URL, initialize normally
+            console.log('[Language Switcher] Not on French URL, starting normal initialization');
+            init();
+        }
+    })();
 })();
 
