@@ -9,15 +9,23 @@
     
     // Load Header and Footer components
     document.addEventListener('DOMContentLoaded', function() {
+        console.log('[Load Components] DOMContentLoaded fired');
+        console.log('[Load Components] Current pathname:', window.location.pathname);
+        
         const getBasePath = () => {
             const pathSegments = window.location.pathname.split('/').filter(segment => segment !== '');
+            console.log('[Load Components] Path segments:', pathSegments);
             // Check if we're in /fr/ directory
             if (pathSegments[0] === 'fr') {
-                return pathSegments.length > 2 ? '../../' : '../';
+                const basePath = pathSegments.length > 2 ? '../../' : '../';
+                console.log('[Load Components] In /fr/ directory, basePath:', basePath);
+                return basePath;
             }
             if (pathSegments.length > 1 && pathSegments[pathSegments.length - 1].includes('.html')) {
+                console.log('[Load Components] In subdirectory, basePath: ../');
                 return '../';
             }
+            console.log('[Load Components] At root, basePath: /');
             return '/';
         };
         
@@ -28,8 +36,15 @@
         const headerFile = isFrench ? 'header-fr.html' : 'header.html';
         const footerFile = isFrench ? 'footer-fr.html' : 'footer.html';
         
+        console.log('[Load Components] Is French?', isFrench);
+        console.log('[Load Components] Header file:', headerFile);
+        console.log('[Load Components] Footer file:', footerFile);
+        
         const headerPath = basePath === '/' ? `/includes/${headerFile}` : `${basePath}includes/${headerFile}`;
         const footerPath = basePath === '/' ? `/includes/${footerFile}` : `${basePath}includes/${footerFile}`;
+        
+        console.log('[Load Components] Header path:', headerPath);
+        console.log('[Load Components] Footer path:', footerPath);
         
         // Load Header
         loadHeader(headerPath, basePath);
@@ -39,17 +54,24 @@
     });
     
     function loadHeader(path, basePath) {
+        console.log('[Load Components] Loading header from:', path);
         fetch(path)
             .then(response => {
+                console.log('[Load Components] Header fetch response status:', response.status, response.ok);
                 // If French header doesn't exist, fallback to English
                 if (!response.ok) {
+                    console.log('[Load Components] Header not found, attempting fallback');
                     const isFrench = path.includes('header-fr.html');
                     if (isFrench) {
+                        console.log('[Load Components] French header not found, trying English header');
                         // Try English header as fallback
                         const englishPath = path.replace('header-fr.html', 'header.html');
+                        console.log('[Load Components] Trying English header at:', englishPath);
                         return fetch(englishPath).then(engResponse => {
+                            console.log('[Load Components] English header fallback status:', engResponse.status);
                             if (!engResponse.ok) {
                                 // Final fallback to root English header
+                                console.log('[Load Components] English header also failed, trying root header');
                                 return fetch('/includes/header.html');
                             }
                             return engResponse;
@@ -57,6 +79,7 @@
                     }
                     // For English headers, try root if subdirectory fails
                     if (basePath !== '/') {
+                        console.log('[Load Components] Trying root English header');
                         return fetch('/includes/header.html');
                     }
                     throw new Error('Failed to load header');
@@ -65,30 +88,38 @@
             })
             .then(response => response.text())
             .then(data => {
+                console.log('[Load Components] Header loaded successfully, length:', data.length);
                 const headerPlaceholder = document.getElementById('header-placeholder');
                 if (headerPlaceholder) {
+                    console.log('[Load Components] Header placeholder found, inserting header');
                     headerPlaceholder.innerHTML = data;
                     // Initialize navigation after header loads - use same simple approach as working site
                     setTimeout(initializeNavigation, 200);
                     // Dispatch event for language switcher
+                    console.log('[Load Components] Dispatching headerLoaded event');
                     document.dispatchEvent(new CustomEvent('headerLoaded'));
+                } else {
+                    console.error('[Load Components] Header placeholder not found!');
                 }
             })
             .catch(error => {
-                console.error('Error loading header:', error);
+                console.error('[Load Components] Error loading header:', error);
                 // Final fallback to English header
+                console.log('[Load Components] Attempting final fallback to root English header');
                 fetch('/includes/header.html')
                     .then(response => response.text())
                     .then(data => {
+                        console.log('[Load Components] Fallback header loaded');
                         const headerPlaceholder = document.getElementById('header-placeholder');
                         if (headerPlaceholder) {
                             headerPlaceholder.innerHTML = data;
                             setTimeout(initializeNavigation, 200);
                             // Dispatch event for language switcher
+                            console.log('[Load Components] Dispatching headerLoaded event (fallback)');
                             document.dispatchEvent(new CustomEvent('headerLoaded'));
                         }
                     })
-                    .catch(err => console.error('Error loading header from fallback:', err));
+                    .catch(err => console.error('[Load Components] Error loading header from fallback:', err));
             });
     }
     
