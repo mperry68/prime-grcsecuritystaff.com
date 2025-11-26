@@ -11,6 +11,10 @@
     document.addEventListener('DOMContentLoaded', function() {
         const getBasePath = () => {
             const pathSegments = window.location.pathname.split('/').filter(segment => segment !== '');
+            // Check if we're in /fr/ directory
+            if (pathSegments[0] === 'fr') {
+                return pathSegments.length > 2 ? '../../' : '../';
+            }
             if (pathSegments.length > 1 && pathSegments[pathSegments.length - 1].includes('.html')) {
                 return '../';
             }
@@ -18,8 +22,14 @@
         };
         
         const basePath = getBasePath();
-        const headerPath = basePath === '/' ? '/includes/header.html' : '../includes/header.html';
-        const footerPath = basePath === '/' ? '/includes/footer.html' : '../includes/footer.html';
+        
+        // Determine if we're in French version
+        const isFrench = window.location.pathname.startsWith('/fr/');
+        const headerFile = isFrench ? 'header-fr.html' : 'header.html';
+        const footerFile = isFrench ? 'footer-fr.html' : 'footer.html';
+        
+        const headerPath = basePath === '/' ? `/includes/${headerFile}` : `${basePath}includes/${headerFile}`;
+        const footerPath = basePath === '/' ? `/includes/${footerFile}` : `${basePath}includes/${footerFile}`;
         
         // Load Header
         loadHeader(headerPath, basePath);
@@ -31,10 +41,26 @@
     function loadHeader(path, basePath) {
         fetch(path)
             .then(response => {
-                if (!response.ok && basePath !== '/') {
-                    return fetch('/includes/header.html');
+                // If French header doesn't exist, fallback to English
+                if (!response.ok) {
+                    const isFrench = path.includes('header-fr.html');
+                    if (isFrench) {
+                        // Try English header as fallback
+                        const englishPath = path.replace('header-fr.html', 'header.html');
+                        return fetch(englishPath).then(engResponse => {
+                            if (!engResponse.ok) {
+                                // Final fallback to root English header
+                                return fetch('/includes/header.html');
+                            }
+                            return engResponse;
+                        });
+                    }
+                    // For English headers, try root if subdirectory fails
+                    if (basePath !== '/') {
+                        return fetch('/includes/header.html');
+                    }
+                    throw new Error('Failed to load header');
                 }
-                if (!response.ok) throw new Error('Failed to load header');
                 return response;
             })
             .then(response => response.text())
@@ -48,29 +74,43 @@
             })
             .catch(error => {
                 console.error('Error loading header:', error);
-                // Retry with absolute path
-                if (basePath !== '/') {
-                    fetch('/includes/header.html')
-                        .then(response => response.text())
-                        .then(data => {
-                            const headerPlaceholder = document.getElementById('header-placeholder');
-                            if (headerPlaceholder) {
-                                headerPlaceholder.innerHTML = data;
-                                setTimeout(initializeNavigation, 200);
-                            }
-                        })
-                        .catch(err => console.error('Error loading header from absolute path:', err));
-                }
+                // Final fallback to English header
+                fetch('/includes/header.html')
+                    .then(response => response.text())
+                    .then(data => {
+                        const headerPlaceholder = document.getElementById('header-placeholder');
+                        if (headerPlaceholder) {
+                            headerPlaceholder.innerHTML = data;
+                            setTimeout(initializeNavigation, 200);
+                        }
+                    })
+                    .catch(err => console.error('Error loading header from fallback:', err));
             });
     }
     
     function loadFooter(path, basePath) {
         fetch(path)
             .then(response => {
-                if (!response.ok && basePath !== '/') {
-                    return fetch('/includes/footer.html');
+                // If French footer doesn't exist, fallback to English
+                if (!response.ok) {
+                    const isFrench = path.includes('footer-fr.html');
+                    if (isFrench) {
+                        // Try English footer as fallback
+                        const englishPath = path.replace('footer-fr.html', 'footer.html');
+                        return fetch(englishPath).then(engResponse => {
+                            if (!engResponse.ok) {
+                                // Final fallback to root English footer
+                                return fetch('/includes/footer.html');
+                            }
+                            return engResponse;
+                        });
+                    }
+                    // For English footers, try root if subdirectory fails
+                    if (basePath !== '/') {
+                        return fetch('/includes/footer.html');
+                    }
+                    throw new Error('Failed to load footer');
                 }
-                if (!response.ok) throw new Error('Failed to load footer');
                 return response;
             })
             .then(response => response.text())
@@ -92,6 +132,16 @@
             })
             .catch(error => {
                 console.error('Error loading footer:', error);
+                // Final fallback to English footer
+                fetch('/includes/footer.html')
+                    .then(response => response.text())
+                    .then(data => {
+                        const footerPlaceholder = document.getElementById('footer-placeholder');
+                        if (footerPlaceholder) {
+                            footerPlaceholder.innerHTML = data;
+                        }
+                    })
+                    .catch(err => console.error('Error loading footer from fallback:', err));
             });
     }
     
