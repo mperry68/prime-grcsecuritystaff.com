@@ -841,6 +841,122 @@ body {
     margin: 0 auto;
 }
 
+/* About Page Two-Column Layout */
+.about-layout {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 4rem;
+    max-width: 1400px;
+    margin: 0 auto;
+    align-items: start;
+}
+
+.about-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.about-content .intro-section {
+    margin-bottom: 0;
+}
+
+.about-content h2 {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    color: var(--secondary-color);
+    font-weight: 700;
+}
+
+.about-content p {
+    color: var(--text-color);
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+}
+
+.about-images {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    position: sticky;
+    top: 100px;
+    height: fit-content;
+}
+
+.about-image-wrapper {
+    width: 100%;
+    overflow: hidden;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    background: var(--bg-light);
+}
+
+.about-image {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.about-image:hover {
+    transform: scale(1.02);
+}
+
+.about-image-wrapper:first-child {
+    flex: 1;
+}
+
+.about-image-wrapper:first-child .about-image {
+    width: 100%;
+    height: auto;
+    min-height: 500px;
+    object-fit: cover;
+}
+
+.about-image-wrapper:last-child {
+    flex: 0.8;
+}
+
+.about-image-wrapper:last-child .about-image {
+    width: 100%;
+    height: auto;
+    min-height: 400px;
+    object-fit: cover;
+}
+
+@media (max-width: 1024px) {
+    .about-layout {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+    }
+    
+    .about-images {
+        position: static;
+        flex-direction: row;
+        gap: 1.5rem;
+    }
+    
+    .about-image-wrapper:first-child .about-image,
+    .about-image-wrapper:last-child .about-image {
+        min-height: 300px;
+    }
+}
+
+@media (max-width: 768px) {
+    .about-layout {
+        gap: 2rem;
+    }
+    
+    .about-images {
+        flex-direction: column;
+    }
+    
+    .about-image-wrapper:first-child .about-image,
+    .about-image-wrapper:last-child .about-image {
+        min-height: 250px;
+    }
+}
+
 .service-details h2 {
     font-size: 2rem;
     margin-bottom: 1.5rem;
