@@ -5,6 +5,15 @@
 (function() {
     'use strict';
     
+    // Store language preference
+    function setLanguagePreference(lang) {
+        localStorage.setItem('preferred-language', lang);
+    }
+    
+    function getLanguagePreference() {
+        return localStorage.getItem('preferred-language') || 'en';
+    }
+    
     // Detect current language from URL
     function getCurrentLanguage() {
         const path = window.location.pathname;
@@ -15,8 +24,23 @@
     function getCurrentPage() {
         const path = window.location.pathname;
         const segments = path.split('/').filter(s => s);
-        const filename = segments[segments.length - 1] || 'index.html';
-        return filename === '' || filename === 'fr' ? 'index.html' : filename;
+        
+        // Handle homepage (root or /fr/)
+        if (segments.length === 0 || (segments.length === 1 && segments[0] === 'fr')) {
+            return 'index.html';
+        }
+        
+        // If we're in /fr/, get the page after 'fr'
+        if (segments[0] === 'fr') {
+            if (segments.length === 1) {
+                return 'index.html'; // /fr/ is homepage
+            }
+            return segments[1]; // /fr/page.html -> page.html
+        }
+        
+        // Get the last segment (filename)
+        const filename = segments[segments.length - 1];
+        return filename || 'index.html';
     }
     
     // Get the corresponding page URL in the other language
@@ -26,7 +50,7 @@
         const targetLang = currentLang === 'en' ? 'fr' : 'en';
         
         // Special case for homepage
-        if (currentPage === 'index.html' || currentPage === '') {
+        if (currentPage === 'index.html') {
             return targetLang === 'fr' ? '/fr/' : '/';
         }
         
@@ -39,13 +63,19 @@
         }
     }
     
-    // Check if a page exists
+    // Check if a page exists (with better error handling)
     async function pageExists(url) {
         try {
             const response = await fetch(url, { method: 'HEAD' });
             return response.ok;
         } catch (error) {
-            return false;
+            // If HEAD fails, try GET
+            try {
+                const response = await fetch(url, { method: 'GET' });
+                return response.ok;
+            } catch (e) {
+                return false;
+            }
         }
     }
     
@@ -98,25 +128,58 @@
                 // French page doesn't exist, redirect to English
                 const englishUrl = currentPage === 'index.html' ? '/' : `/${currentPage}`;
                 
-                // Check if English page exists
-                const englishExists = await pageExists(englishUrl);
-                
-                if (englishExists) {
-                    // Redirect to English and show notice
-                    window.history.replaceState({}, '', englishUrl);
-                    showFallbackNotice();
-                    // Reload header/footer to get English versions
-                    location.reload();
-                }
+                // Redirect to English and show notice
+                window.location.href = englishUrl;
             }
         }
     }
     
+    // Make navigation links language-aware
+    function updateNavigationLinks(lang) {
+        const navLinks = document.querySelectorAll('.nav-menu a[href^="/"]');
+        navLinks.forEach(link => {
+            const href = link.getAttribute('href');
+            if (!href) return;
+            
+            // Skip external links
+            if (href.startsWith('http') || href.startsWith('#')) return;
+            
+            // Skip language switcher links
+            if (link.classList.contains('lang-link')) return;
+            
+            // Update link based on language
+            if (lang === 'fr') {
+                // Convert to French URL
+                if (href === '/' || href === '/index.html') {
+                    link.setAttribute('href', '/fr/');
+                } else if (!href.startsWith('/fr/')) {
+                    link.setAttribute('href', `/fr${href}`);
+                }
+            } else {
+                // Convert to English URL
+                if (href === '/fr/' || href === '/fr/index.html') {
+                    link.setAttribute('href', '/');
+                } else if (href.startsWith('/fr/')) {
+                    link.setAttribute('href', href.replace('/fr/', '/'));
+                }
+            }
+        });
+    }
+    
     // Initialize language switcher
     async function initLanguageSwitcher() {
+        // Wait a bit for header to load
+        await new Promise(resolve => setTimeout(resolve, 100));
+        
         const langLinks = document.querySelectorAll('.lang-link');
         const currentLang = getCurrentLanguage();
         const alternateUrl = getAlternateLanguageUrl();
+        
+        // Update language preference
+        setLanguagePreference(currentLang);
+        
+        // Update navigation links
+        updateNavigationLinks(currentLang);
         
         langLinks.forEach(link => {
             const linkLang = link.getAttribute('data-lang');
@@ -126,49 +189,47 @@
                 link.classList.add('active');
                 link.style.fontWeight = 'bold';
                 link.style.color = 'var(--primary-color)';
+            } else {
+                link.classList.remove('active');
+                link.style.fontWeight = 'normal';
+                link.style.color = '';
             }
             
             // Set up click handler
             link.addEventListener('click', async function(e) {
                 e.preventDefault();
+                e.stopPropagation();
                 
                 // Only switch if clicking the other language
                 if (linkLang !== currentLang) {
-                    // If switching to French, check if page exists first
-                    if (linkLang === 'fr') {
-                        const exists = await pageExists(alternateUrl);
-                        if (exists) {
-                            window.location.href = alternateUrl;
-                        } else {
-                            // French page doesn't exist, stay on English and show notice
-                            showFallbackNotice();
-                            // Update active state
-                            langLinks.forEach(l => {
-                                l.classList.remove('active');
-                                l.style.fontWeight = 'normal';
-                                l.style.color = '';
-                            });
-                            document.querySelector(`[data-lang="en"]`).classList.add('active');
-                            document.querySelector(`[data-lang="en"]`).style.fontWeight = 'bold';
-                            document.querySelector(`[data-lang="en"]`).style.color = 'var(--primary-color)';
-                        }
-                    } else {
-                        // Switching to English - always works
-                        window.location.href = alternateUrl;
-                    }
+                    // Store preference and navigate
+                    setLanguagePreference(linkLang);
+                    
+                    // Navigate directly - let the page load handle fallback
+                    window.location.href = alternateUrl;
                 }
             });
         });
         
         // Check if we need to show fallback notice
         await checkFrenchPageExists();
+        
+        // Re-update navigation after a delay to catch dynamically loaded content
+        setTimeout(() => updateNavigationLinks(currentLang), 500);
     }
     
     // Initialize when DOM is ready
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initLanguageSwitcher);
-    } else {
-        initLanguageSwitcher();
+    function init() {
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initLanguageSwitcher);
+        } else {
+            initLanguageSwitcher();
+        }
     }
+    
+    // Also listen for header load events
+    document.addEventListener('headerLoaded', initLanguageSwitcher);
+    
+    init();
 })();
 

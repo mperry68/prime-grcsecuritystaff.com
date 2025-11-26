@@ -70,6 +70,8 @@
                     headerPlaceholder.innerHTML = data;
                     // Initialize navigation after header loads - use same simple approach as working site
                     setTimeout(initializeNavigation, 200);
+                    // Dispatch event for language switcher
+                    document.dispatchEvent(new CustomEvent('headerLoaded'));
                 }
             })
             .catch(error => {
@@ -82,6 +84,8 @@
                         if (headerPlaceholder) {
                             headerPlaceholder.innerHTML = data;
                             setTimeout(initializeNavigation, 200);
+                            // Dispatch event for language switcher
+                            document.dispatchEvent(new CustomEvent('headerLoaded'));
                         }
                     })
                     .catch(err => console.error('Error loading header from fallback:', err));
