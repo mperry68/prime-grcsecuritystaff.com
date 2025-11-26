@@ -1,6 +1,7 @@
 // Navigation initialization is handled by load-components.js
 // This file only handles other page-specific functionality
 
+document.addEventListener('DOMContentLoaded', function() {
     // Contact Form Handling
     const contactForm = document.getElementById('contactForm');
     if (contactForm) {
