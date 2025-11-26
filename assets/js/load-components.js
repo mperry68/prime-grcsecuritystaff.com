@@ -237,29 +237,51 @@
             }
         });
         
-        // Handle dropdown menus on mobile - EXACTLY like working version
+        // Handle dropdown menus on mobile - prevent anchor navigation for items with sub-items
         const dropdownToggles = document.querySelectorAll('.nav-dropdown > a');
         dropdownToggles.forEach(toggle => {
             toggle.addEventListener('click', function(e) {
                 if (window.innerWidth <= 768) {
+                    // On mobile, prevent anchor navigation for dropdown items
+                    // Just expand/collapse the submenu
                     e.preventDefault();
+                    e.stopPropagation();
                     const dropdown = this.parentElement;
                     dropdown.classList.toggle('active');
+                }
+                // On desktop, allow normal behavior (anchor navigation works)
+            });
+        });
+        
+        // Close mobile menu when clicking on sub-menu items
+        const subMenuLinks = document.querySelectorAll('.nav-dropdown .dropdown-menu a');
+        subMenuLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                if (window.innerWidth <= 768) {
+                    navMenu.classList.remove('active');
+                    menuOverlay.classList.remove('active');
+                    document.body.style.overflow = '';
                 }
             });
         });
         
-        // Close mobile menu when clicking on a link - EXACTLY like working version
-        const navLinks = document.querySelectorAll('.nav-menu a:not(.nav-dropdown > a)');
+        // Close mobile menu when clicking on regular links (non-dropdown, non-anchor except Contact)
+        const navLinks = document.querySelectorAll('.nav-menu > li:not(.nav-dropdown) > a');
         navLinks.forEach(link => {
             link.addEventListener('click', function() {
-                navMenu.classList.remove('active');
-                menuOverlay.classList.remove('active');
-                document.body.style.overflow = '';
+                if (window.innerWidth <= 768) {
+                    const href = this.getAttribute('href');
+                    // Only close menu for non-anchor links (or Contact which is handled separately)
+                    if (!href || !href.startsWith('#')) {
+                        navMenu.classList.remove('active');
+                        menuOverlay.classList.remove('active');
+                        document.body.style.overflow = '';
+                    }
+                }
             });
         });
         
-        // Set active menu item based on current page - EXACTLY like working version
+        // Set active menu item based on current page
         const currentPath = window.location.pathname;
         const menuItems = document.querySelectorAll('.nav-menu > li > a');
         menuItems.forEach(item => {
@@ -269,11 +291,23 @@
             }
         });
         
-        // Smooth scrolling for anchor links - handle contact link specially
+        // Smooth scrolling for anchor links - Contact always works, others only on desktop
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 const href = this.getAttribute('href');
                 if (href !== '#' && href !== '') {
+                    const isContact = href === '#contact';
+                    const isMobile = window.innerWidth <= 768;
+                    const isDropdownItem = this.closest('.nav-dropdown') !== null;
+                    
+                    // On mobile: only allow Contact anchor, prevent others if they're dropdown items
+                    if (isMobile && isDropdownItem && !isContact) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        return;
+                    }
+                    
+                    // Allow Contact or desktop anchor navigation
                     e.preventDefault();
                     const target = document.querySelector(href);
                     if (target) {
@@ -283,6 +317,13 @@
                             top: offsetTop,
                             behavior: 'smooth'
                         });
+                        
+                        // Close mobile menu after scrolling to anchor
+                        if (isMobile) {
+                            navMenu.classList.remove('active');
+                            menuOverlay.classList.remove('active');
+                            document.body.style.overflow = '';
+                        }
                     } else if (href === '#contact') {
                         // Contact section doesn't exist on this page, navigate to home page
                         window.location.href = '/#contact';
