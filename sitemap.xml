@@ -1,0 +1,362 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+    
+    <!-- Homepage -->
+    <url>
+        <loc>https://prime-grcsecuritystaff.com/</loc>
+        <lastmod>2025-01-20</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>1.0</priority>
+        <xhtml:link rel="alternate" hreflang="fr" href="https://prime-grcsecuritystaff.com/fr/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://prime-grcsecuritystaff.com/"/>
+    </url>
+    
+    <!-- French Homepage -->
+    <url>
+        <loc>https://prime-grcsecuritystaff.com/fr/</loc>
+        <lastmod>2025-01-20</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>1.0</priority>
+        <xhtml:link rel="alternate" hreflang="fr" href="https://prime-grcsecuritystaff.com/fr/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://prime-grcsecuritystaff.com/"/>
+    </url>
+    
+    <!-- About Page -->
+    <url>
+        <loc>https://prime-grcsecuritystaff.com/about.html</loc>
+        <lastmod>2025-01-20</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+        <xhtml:link rel="alternate" hreflang="fr" href="https://prime-grcsecuritystaff.com/fr/about.html"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://prime-grcsecuritystaff.com/about.html"/>
+    </url>
+    
+    <url>
+        <loc>https://prime-grcsecuritystaff.com/fr/about.html</loc>
+        <lastmod>2025-01-20</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+        <xhtml:link rel="alternate" hreflang="fr" href="https://prime-grcsecuritystaff.com/fr/about.html"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://prime-grcsecuritystaff.com/about.html"/>
+    </url>
+    
+    <!-- GRC Service Pages -->
+    <url>
+        <loc>https://prime-grcsecuritystaff.com/security-audits.html</loc>
+        <lastmod>2025-01-20</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+        <xhtml:link rel="alternate" hreflang="fr" href="https://prime-grcsecuritystaff.com/fr/security-audits.html"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://prime-grcsecuritystaff.com/security-audits.html"/>
+    </url>
+    
+    <url>
+        <loc>https://prime-grcsecuritystaff.com/fr/security-audits.html</loc>
+        <lastmod>2025-01-20</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+        <xhtml:link rel="alternate" hreflang="fr" href="https://prime-grcsecuritystaff.com/fr/security-audits.html"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://prime-grcsecuritystaff.com/security-audits.html"/>
+    </url>
+    
+    <url>
+        <loc>https://prime-grcsecuritystaff.com/penetration-testing.html</loc>
+        <lastmod>2025-01-20</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+        <xhtml:link rel="alternate" hreflang="fr" href="https://prime-grcsecuritystaff.com/fr/penetration-testing.html"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://prime-grcsecuritystaff.com/penetration-testing.html"/>
+    </url>
+    
+    <url>
+        <loc>https://prime-grcsecuritystaff.com/fr/penetration-testing.html</loc>
+        <lastmod>2025-01-20</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+        <xhtml:link rel="alternate" hreflang="fr" href="https://prime-grcsecuritystaff.com/fr/penetration-testing.html"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://prime-grcsecuritystaff.com/penetration-testing.html"/>
+    </url>
+    
+    <url>
+        <loc>https://prime-grcsecuritystaff.com/security-awareness-training.html</loc>
+        <lastmod>2025-01-20</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+        <xhtml:link rel="alternate" hreflang="fr" href="https://prime-grcsecuritystaff.com/fr/security-awareness-training.html"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://prime-grcsecuritystaff.com/security-awareness-training.html"/>
+    </url>
+    
+    <url>
+        <loc>https://prime-grcsecuritystaff.com/fr/security-awareness-training.html</loc>
+        <lastmod>2025-01-20</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+        <xhtml:link rel="alternate" hreflang="fr" href="https://prime-grcsecuritystaff.com/fr/security-awareness-training.html"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://prime-grcsecuritystaff.com/security-awareness-training.html"/>
+    </url>
+    
+    <url>
+        <loc>https://prime-grcsecuritystaff.com/audits-pentests.html</loc>
+        <lastmod>2025-01-20</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <url>
+        <loc>https://prime-grcsecuritystaff.com/grc-frameworks.html</loc>
+        <lastmod>2025-01-20</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+        <xhtml:link rel="alternate" hreflang="fr" href="https://prime-grcsecuritystaff.com/fr/grc-frameworks.html"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://prime-grcsecuritystaff.com/grc-frameworks.html"/>
+    </url>
+    
+    <url>
+        <loc>https://prime-grcsecuritystaff.com/fr/grc-frameworks.html</loc>
+        <lastmod>2025-01-20</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+        <xhtml:link rel="alternate" hreflang="fr" href="https://prime-grcsecuritystaff.com/fr/grc-frameworks.html"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://prime-grcsecuritystaff.com/grc-frameworks.html"/>
+    </url>
+    
+    <!-- Staff Augmentation Pages -->
+    <url>
+        <loc>https://prime-grcsecuritystaff.com/staff-augmentation.html</loc>
+        <lastmod>2025-01-20</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <url>
+        <loc>https://prime-grcsecuritystaff.com/software-development.html</loc>
+        <lastmod>2025-01-20</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+        <xhtml:link rel="alternate" hreflang="fr" href="https://prime-grcsecuritystaff.com/fr/software-development.html"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://prime-grcsecuritystaff.com/software-development.html"/>
+    </url>
+    
+    <url>
+        <loc>https://prime-grcsecuritystaff.com/fr/software-development.html</loc>
+        <lastmod>2025-01-20</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+        <xhtml:link rel="alternate" hreflang="fr" href="https://prime-grcsecuritystaff.com/fr/software-development.html"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://prime-grcsecuritystaff.com/software-development.html"/>
+    </url>
+    
+    <url>
+        <loc>https://prime-grcsecuritystaff.com/it-infrastructure.html</loc>
+        <lastmod>2025-01-20</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+        <xhtml:link rel="alternate" hreflang="fr" href="https://prime-grcsecuritystaff.com/fr/it-infrastructure.html"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://prime-grcsecuritystaff.com/it-infrastructure.html"/>
+    </url>
+    
+    <url>
+        <loc>https://prime-grcsecuritystaff.com/fr/it-infrastructure.html</loc>
+        <lastmod>2025-01-20</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+        <xhtml:link rel="alternate" hreflang="fr" href="https://prime-grcsecuritystaff.com/fr/it-infrastructure.html"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://prime-grcsecuritystaff.com/it-infrastructure.html"/>
+    </url>
+    
+    <url>
+        <loc>https://prime-grcsecuritystaff.com/data-analytics.html</loc>
+        <lastmod>2025-01-20</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+        <xhtml:link rel="alternate" hreflang="fr" href="https://prime-grcsecuritystaff.com/fr/data-analytics.html"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://prime-grcsecuritystaff.com/data-analytics.html"/>
+    </url>
+    
+    <url>
+        <loc>https://prime-grcsecuritystaff.com/fr/data-analytics.html</loc>
+        <lastmod>2025-01-20</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+        <xhtml:link rel="alternate" hreflang="fr" href="https://prime-grcsecuritystaff.com/fr/data-analytics.html"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://prime-grcsecuritystaff.com/data-analytics.html"/>
+    </url>
+    
+    <url>
+        <loc>https://prime-grcsecuritystaff.com/project-management.html</loc>
+        <lastmod>2025-01-20</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+        <xhtml:link rel="alternate" hreflang="fr" href="https://prime-grcsecuritystaff.com/fr/project-management.html"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://prime-grcsecuritystaff.com/project-management.html"/>
+    </url>
+    
+    <url>
+        <loc>https://prime-grcsecuritystaff.com/fr/project-management.html</loc>
+        <lastmod>2025-01-20</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+        <xhtml:link rel="alternate" hreflang="fr" href="https://prime-grcsecuritystaff.com/fr/project-management.html"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://prime-grcsecuritystaff.com/project-management.html"/>
+    </url>
+    
+    <url>
+        <loc>https://prime-grcsecuritystaff.com/quality-assurance.html</loc>
+        <lastmod>2025-01-20</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+        <xhtml:link rel="alternate" hreflang="fr" href="https://prime-grcsecuritystaff.com/fr/quality-assurance.html"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://prime-grcsecuritystaff.com/quality-assurance.html"/>
+    </url>
+    
+    <url>
+        <loc>https://prime-grcsecuritystaff.com/fr/quality-assurance.html</loc>
+        <lastmod>2025-01-20</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+        <xhtml:link rel="alternate" hreflang="fr" href="https://prime-grcsecuritystaff.com/fr/quality-assurance.html"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://prime-grcsecuritystaff.com/quality-assurance.html"/>
+    </url>
+    
+    <!-- Content Pages -->
+    <url>
+        <loc>https://prime-grcsecuritystaff.com/blog.html</loc>
+        <lastmod>2025-01-20</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    
+    <url>
+        <loc>https://prime-grcsecuritystaff.com/faq.html</loc>
+        <lastmod>2025-01-20</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    
+    <url>
+        <loc>https://prime-grcsecuritystaff.com/resources.html</loc>
+        <lastmod>2025-01-20</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    
+    <!-- Blog Posts -->
+    <url>
+        <loc>https://prime-grcsecuritystaff.com/blog/5-key-benefits-staff-augmentation.html</loc>
+        <lastmod>2025-01-15</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    
+    <url>
+        <loc>https://prime-grcsecuritystaff.com/blog/strategic-advantages-staff-augmentation.html</loc>
+        <lastmod>2025-01-10</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    
+    <url>
+        <loc>https://prime-grcsecuritystaff.com/blog/cost-savings-staff-augmentation.html</loc>
+        <lastmod>2025-01-05</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    
+    <url>
+        <loc>https://prime-grcsecuritystaff.com/blog/best-practices-integrating-staff.html</loc>
+        <lastmod>2024-12-28</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    
+    <url>
+        <loc>https://prime-grcsecuritystaff.com/blog/security-compliance-staff-augmentation.html</loc>
+        <lastmod>2024-12-20</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    
+    <url>
+        <loc>https://prime-grcsecuritystaff.com/blog/future-trends-staff-augmentation.html</loc>
+        <lastmod>2024-12-15</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    
+    <!-- Policy Pages -->
+    <url>
+        <loc>https://prime-grcsecuritystaff.com/privacy-policy.html</loc>
+        <lastmod>2024-03-17</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.3</priority>
+        <xhtml:link rel="alternate" hreflang="fr" href="https://prime-grcsecuritystaff.com/fr/privacy-policy.html"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://prime-grcsecuritystaff.com/privacy-policy.html"/>
+    </url>
+    
+    <url>
+        <loc>https://prime-grcsecuritystaff.com/fr/privacy-policy.html</loc>
+        <lastmod>2024-03-17</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.3</priority>
+        <xhtml:link rel="alternate" hreflang="fr" href="https://prime-grcsecuritystaff.com/fr/privacy-policy.html"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://prime-grcsecuritystaff.com/privacy-policy.html"/>
+    </url>
+    
+    <url>
+        <loc>https://prime-grcsecuritystaff.com/cookies-policy.html</loc>
+        <lastmod>2024-03-17</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.3</priority>
+        <xhtml:link rel="alternate" hreflang="fr" href="https://prime-grcsecuritystaff.com/fr/cookies-policy.html"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://prime-grcsecuritystaff.com/cookies-policy.html"/>
+    </url>
+    
+    <url>
+        <loc>https://prime-grcsecuritystaff.com/fr/cookies-policy.html</loc>
+        <lastmod>2024-03-17</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.3</priority>
+        <xhtml:link rel="alternate" hreflang="fr" href="https://prime-grcsecuritystaff.com/fr/cookies-policy.html"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://prime-grcsecuritystaff.com/cookies-policy.html"/>
+    </url>
+    
+    <url>
+        <loc>https://prime-grcsecuritystaff.com/quality-policy.html</loc>
+        <lastmod>2025-01-01</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.3</priority>
+        <xhtml:link rel="alternate" hreflang="fr" href="https://prime-grcsecuritystaff.com/fr/quality-policy.html"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://prime-grcsecuritystaff.com/quality-policy.html"/>
+    </url>
+    
+    <url>
+        <loc>https://prime-grcsecuritystaff.com/fr/quality-policy.html</loc>
+        <lastmod>2025-01-01</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.3</priority>
+        <xhtml:link rel="alternate" hreflang="fr" href="https://prime-grcsecuritystaff.com/fr/quality-policy.html"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://prime-grcsecuritystaff.com/quality-policy.html"/>
+    </url>
+    
+    <url>
+        <loc>https://prime-grcsecuritystaff.com/environmental-policy.html</loc>
+        <lastmod>2025-01-01</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.3</priority>
+        <xhtml:link rel="alternate" hreflang="fr" href="https://prime-grcsecuritystaff.com/fr/environmental-policy.html"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://prime-grcsecuritystaff.com/environmental-policy.html"/>
+    </url>
+    
+    <url>
+        <loc>https://prime-grcsecuritystaff.com/fr/environmental-policy.html</loc>
+        <lastmod>2025-01-01</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.3</priority>
+        <xhtml:link rel="alternate" hreflang="fr" href="https://prime-grcsecuritystaff.com/fr/environmental-policy.html"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://prime-grcsecuritystaff.com/environmental-policy.html"/>
+    </url>
+    
+</urlset>
+
