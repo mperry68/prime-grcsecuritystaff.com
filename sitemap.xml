@@ -285,6 +285,13 @@
         <priority>0.6</priority>
     </url>
     
+    <url>
+        <loc>https://prime-grcsecuritystaff.com/blog/iso27001-risk-management-guide.html</loc>
+        <lastmod>2025-01-20</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    
     <!-- Policy Pages -->
     <url>
         <loc>https://prime-grcsecuritystaff.com/privacy-policy.html</loc>
