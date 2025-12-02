@@ -1,0 +1,15 @@
+/* TEAM */
+Founder: Sam Leo
+Site: https://prime-grcsecuritystaff.com
+Twitter: @primeconsulting
+Location: Pointe-Claire, Quebec, Canada
+
+/* THANKS */
+Prime Consulting Group - Expert GRC Services & AI Governance
+
+/* SITE */
+Last update: 2025/01/20
+Standards: HTML5, CSS3, JavaScript
+Components: Modern Web Standards
+Software: Static Site Generation
+
