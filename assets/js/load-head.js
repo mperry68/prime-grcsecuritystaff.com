@@ -18,9 +18,39 @@
             .some(script => script.src.includes(src));
     }
     
+    // Load IP2Country script
+    function loadIp2cScript() {
+        // Check if IP2Country script is already loaded
+        if (window.ip2c) {
+            return;
+        }
+        
+        const ip2cScript = document.createElement('script');
+        ip2cScript.textContent = `
+            ! function (i, s, o, g, r, a, m) {
+                i.Ip2cObject = o;
+                i[o] || (i[o] = function () {
+                    (i[o].q = i[o].q || []).push(arguments)
+                });
+                i[o].l = +new Date;
+                r = s.createElement(g);
+                a = s.getElementsByTagName(g)[0];
+                r.src = '//reveal.ip2c.net/8432574.js';
+                a.parentNode.insertBefore(r, a)
+            }(window, document, 'ip2c', 'script');
+            
+            ip2c('verify', '8432574');
+        `;
+        ip2cScript.setAttribute('data-auto-loaded', 'true');
+        document.head.appendChild(ip2cScript);
+    }
+    
     // Load required scripts
     function loadRequiredScripts() {
         const basePath = getBasePath();
+        
+        // Load IP2Country script first
+        loadIp2cScript();
         
         requiredScripts.forEach(scriptPath => {
             const fullPath = basePath === '/' ? scriptPath : '../' + scriptPath.replace('/', '');
