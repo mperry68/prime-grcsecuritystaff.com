@@ -2221,3 +2221,63 @@ body {
     }
 }
 
+/* Lazy Loading Styles */
+.lazy-image {
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    background: var(--bg-light);
+    min-height: 200px;
+}
+
+.lazy-image.lazy-loading {
+    opacity: 0.5;
+    filter: blur(5px);
+}
+
+.lazy-image.lazy-loaded {
+    opacity: 1;
+    filter: blur(0);
+}
+
+.lazy-image.lazy-error {
+    opacity: 0.3;
+    background: var(--bg-light);
+}
+
+/* Prevent layout shift during lazy loading */
+img[data-src] {
+    min-height: 200px;
+    background: var(--bg-light);
+    display: block;
+}
+
+.service-image[data-src] {
+    min-height: 220px;
+}
+
+/* Performance optimizations */
+img {
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+}
+
+/* Font loading optimization */
+.fonts-loaded body {
+    font-display: swap;
+}
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+    
+    .lazy-image {
+        transition: none;
+    }
+}
+

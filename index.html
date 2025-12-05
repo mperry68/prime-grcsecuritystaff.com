@@ -51,6 +51,9 @@
     <link rel="alternate" hreflang="fr" href="https://prime-consulting.ca/fr/">
     <link rel="alternate" hreflang="x-default" href="https://prime-consulting.ca/">
     
+    <!-- GEO JSON Location Data -->
+    <link rel="alternate" type="application/geo+json" href="/public/geo.json">
+    
     <!-- Structured Data (JSON-LD) -->
     <script type="application/ld+json">
     {
@@ -128,12 +131,23 @@
     }
     </script>
     
-    <!-- Fonts and Styles -->
+    <!-- Performance Optimizations -->
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+    <link rel="dns-prefetch" href="https://www.google-analytics.com">
+    <link rel="dns-prefetch" href="https://www.googletagmanager.com">
+    
+    <!-- Preconnect for critical resources -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!-- Fonts and Styles - Optimized loading -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/styles.css">
     <link rel="icon" type="image/png" href="/public/images/fav.png">
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="/public/images/cybersecurity-data-protection-concept-futuristic-shield-lock-scaled.jpg" as="image" fetchpriority="high">
     
     <!-- Auto-Load SEO and Security Scripts (applies to all pages automatically) -->
     <script src="assets/js/load-head.js"></script>
@@ -145,7 +159,7 @@
     <!-- Hero Section -->
     <section class="hero">
         <div class="hero-image">
-            <img src="/public/images/cybersecurity-data-protection-concept-futuristic-shield-lock-scaled.jpg" alt="Cybersecurity Protection">
+            <img src="/public/images/cybersecurity-data-protection-concept-futuristic-shield-lock-scaled.jpg" alt="Cybersecurity Protection" fetchpriority="high">
         </div>
         <div class="hero-content">
             <div class="container">
@@ -166,42 +180,42 @@
             <p class="section-intro">We provide end-to-end governance, risk, and compliance services to protect your digital assets and ensure regulatory compliance.</p>
             <div class="services-grid">
                 <div class="service-card">
-                    <img src="/public/images/person-office-analyzing-checking-finance-graphs-scaled.jpg" alt="Security Audits & ISO & SOC Compliance Programs" class="service-image">
+                    <img src="/public/images/person-office-analyzing-checking-finance-graphs-scaled.jpg" alt="Security Audits & ISO & SOC Compliance Programs" class="service-image" loading="lazy">
                     <h3>Security Audits & ISO & SOC Compliance Programs</h3>
                     <p>Comprehensive assessments of your security posture, identifying vulnerabilities and providing actionable recommendations to strengthen your defenses. Build and maintain ISO and SOC 2 compliance programs.</p>
                     <a href="/security-audits.html" class="service-link">Learn More →</a>
                 </div>
                 
                 <div class="service-card">
-                    <img src="/public/images/modern-equipped-computer-lab-scaled.jpg" alt="Penetration Testing" class="service-image">
+                    <img src="/public/images/modern-equipped-computer-lab-scaled.jpg" alt="Penetration Testing" class="service-image" loading="lazy">
                     <h3>Penetration Testing</h3>
                     <p>Simulated cyberattacks to identify real-world vulnerabilities in your systems, networks, and applications before malicious actors exploit them.</p>
                     <a href="/penetration-testing.html" class="service-link">Learn More →</a>
                 </div>
                 
                 <div class="service-card">
-                    <img src="/public/images/colleagues-browsing-smartphone-discussion-scaled.jpg" alt="Security Awareness Training" class="service-image">
+                    <img src="/public/images/colleagues-browsing-smartphone-discussion-scaled.jpg" alt="Security Awareness Training" class="service-image" loading="lazy">
                     <h3>Security Awareness Training</h3>
                     <p>Employee awareness programs and simulated phishing campaigns to educate your team and reduce the risk of social engineering attacks. With structured frameworks, regular internal audits, and continuous improvement processes to ensure ongoing compliance and readiness.</p>
                     <a href="/security-awareness-training.html" class="service-link">Learn More →</a>
                 </div>
                 
                 <div class="service-card">
-                    <img src="/public/images/ai-robotic-arm-interacting-with-data-visualization-scaled.jpg" alt="AI Governance and Risk Management" class="service-image">
+                    <img src="/public/images/ai-robotic-arm-interacting-with-data-visualization-scaled.jpg" alt="AI Governance and Risk Management" class="service-image" loading="lazy">
                     <h3>AI Governance and Risk Management</h3>
                     <p>Build trust in your firm's AI use. Implement ethical, auditable AI controls aligned with ISO 42001, CPPA, and Law 25.</p>
                     <a href="/grc-frameworks.html" class="service-link">Learn More →</a>
                 </div>
                 
                 <div class="service-card">
-                    <img src="/public/images/businessman-interacting-with-futuristic-graphics-scaled-e1754473415613.jpg" alt="Business Continuity & Disaster Recovery Planning" class="service-image">
+                    <img src="/public/images/businessman-interacting-with-futuristic-graphics-scaled-e1754473415613.jpg" alt="Business Continuity & Disaster Recovery Planning" class="service-image" loading="lazy">
                     <h3>Business Continuity & Disaster Recovery Planning</h3>
                     <p>Be ready to operate — no matter the disruption. Get tailored ISO 22301-based BCPs and tested recovery playbooks for business-critical services.</p>
                     <a href="/grc-frameworks.html" class="service-link">Learn More →</a>
                 </div>
                 
                 <div class="service-card">
-                    <img src="/public/images/business-person-futuristic-business-environment-scaled.jpg" alt="Data Security & Compliance Frameworks" class="service-image">
+                    <img src="/public/images/business-person-futuristic-business-environment-scaled.jpg" alt="Data Security & Compliance Frameworks" class="service-image" loading="lazy">
                     <h3>Data Security & Compliance Frameworks</h3>
                     <p>With rising cyber threats and privacy laws, "good enough" security isn't enough. We help you implement ISO 27001 and SOC 2-aligned frameworks to protect sensitive data, reduce liability, and demonstrate your commitment to client trust.</p>
                     <a href="/grc-frameworks.html" class="service-link">Learn More →</a>
@@ -217,42 +231,42 @@
             <p class="section-intro">Connect with expert IT and development professionals for temporary and contract positions. Get the right talent when you need it.</p>
             <div class="services-grid">
                 <div class="service-card">
-                    <img src="/public/images/futuristic-technology-concept-scaled.jpg" alt="Software Development" class="service-image">
+                    <img src="/public/images/futuristic-technology-concept-scaled.jpg" alt="Software Development" class="service-image" loading="lazy">
                     <h3>Software Development</h3>
                     <p>Full-stack developers, front-end specialists, back-end engineers, and mobile app developers ready to integrate into your team.</p>
                     <a href="/software-development.html" class="service-link">Learn More →</a>
                 </div>
                 
                 <div class="service-card">
-                    <img src="/public/images/modern-equipped-computer-lab-scaled.jpg" alt="IT Infrastructure" class="service-image">
+                    <img src="/public/images/modern-equipped-computer-lab-scaled.jpg" alt="IT Infrastructure" class="service-image" loading="lazy">
                     <h3>IT Infrastructure</h3>
                     <p>Network engineers, system administrators, DevOps specialists, and cloud architects to support your technology infrastructure.</p>
                     <a href="/it-infrastructure.html" class="service-link">Learn More →</a>
                 </div>
                 
                 <div class="service-card">
-                    <img src="/public/images/person-office-analyzing-checking-finance-graphs-scaled.jpg" alt="Data & Analytics" class="service-image">
+                    <img src="/public/images/person-office-analyzing-checking-finance-graphs-scaled.jpg" alt="Data & Analytics" class="service-image" loading="lazy">
                     <h3>Data & Analytics</h3>
                     <p>Data engineers, database administrators, business intelligence analysts, and data scientists to unlock insights from your data.</p>
                     <a href="/data-analytics.html" class="service-link">Learn More →</a>
                 </div>
                 
                 <div class="service-card">
-                    <img src="/public/images/top-view-businessman-pointing-financial-statistics-scaled.jpg" alt="Project Management" class="service-image">
+                    <img src="/public/images/top-view-businessman-pointing-financial-statistics-scaled.jpg" alt="Project Management" class="service-image" loading="lazy">
                     <h3>Project Management</h3>
                     <p>Agile coaches, scrum masters, project managers, and technical leads to ensure successful project delivery.</p>
                     <a href="/project-management.html" class="service-link">Learn More →</a>
                 </div>
                 
                 <div class="service-card">
-                    <img src="/public/images/standard-quality-control-collage-concept-scaled.jpg" alt="Quality Assurance" class="service-image">
+                    <img src="/public/images/standard-quality-control-collage-concept-scaled.jpg" alt="Quality Assurance" class="service-image" loading="lazy">
                     <h3>Quality Assurance</h3>
                     <p>QA engineers, test automation specialists, and quality analysts to ensure your products meet the highest standards.</p>
                     <a href="/quality-assurance.html" class="service-link">Learn More →</a>
                 </div>
                 
                 <div class="service-card">
-                    <img src="/public/images/high-angle-colleagues-working-together-1-scaled.jpg" alt="Staff Augmentation Overview" class="service-image">
+                    <img src="/public/images/high-angle-colleagues-working-together-1-scaled.jpg" alt="Staff Augmentation Overview" class="service-image" loading="lazy">
                     <h3>Staff Augmentation</h3>
                     <p>Expert IT and development professionals for temporary and contract positions. Flexible engagement terms that adapt to your needs.</p>
                     <a href="/staff-augmentation.html" class="service-link">Learn More →</a>
@@ -460,7 +474,19 @@
 
     <script src="assets/js/load-components.js"></script>
     <script src="assets/js/language-switcher.js"></script>
-    <script src="assets/js/script.js"></script>
+    <script src="assets/js/lazy-load.js" defer></script>
+    <script src="assets/js/script.js" defer></script>
+    
+    <!-- Google Analytics placeholder - Add your GA Measurement ID here -->
+    <!-- 
+    <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'GA_MEASUREMENT_ID');
+    </script>
+    -->
 </body>
 </html>
 

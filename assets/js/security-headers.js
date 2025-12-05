@@ -8,13 +8,14 @@
     // Security configuration
     const securityConfig = {
         // Content Security Policy - Strict policy to prevent XSS
+        // Allows Google Analytics while maintaining security
         csp: {
             'default-src': "'self'",
-            'script-src': "'self' 'unsafe-inline' https://fonts.googleapis.com https://fonts.gstatic.com",
+            'script-src': "'self' 'unsafe-inline' https://fonts.googleapis.com https://fonts.gstatic.com https://www.google-analytics.com https://www.googletagmanager.com https://ssl.google-analytics.com",
             'style-src': "'self' 'unsafe-inline' https://fonts.googleapis.com",
             'font-src': "'self' https://fonts.gstatic.com data:",
             'img-src': "'self' data: https: blob:",
-            'connect-src': "'self'",
+            'connect-src': "'self' https://www.google-analytics.com https://www.analytics.google.com https://www.googletagmanager.com https://ssl.google-analytics.com https://stats.g.doubleclick.net",
             'frame-src': "'none'",
             'frame-ancestors': "'none'",
             'base-uri': "'self'",

@@ -1,0 +1,45 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-73.8169, 45.4487]
+      },
+      "properties": {
+        "name": "Prime Consulting Group",
+        "address": "6500 Trans-Canada Hwy Suite 400",
+        "city": "Pointe-Claire",
+        "province": "Quebec",
+        "postalCode": "H9R 0A5",
+        "country": "Canada",
+        "phone": "+1-514-881-9888",
+        "email": "info@prime-consulting.ca",
+        "website": "https://prime-consulting.ca",
+        "description": "Expert GRC Services & AI Governance for Canadian Law & Accounting Firms",
+        "services": [
+          "GRC Consulting",
+          "AI Governance",
+          "ISO 27001 Implementation",
+          "ISO 42001 Implementation",
+          "SOC 2 Compliance",
+          "Cybersecurity Audits",
+          "Penetration Testing",
+          "Security Awareness Training"
+        ],
+        "areaServed": "Canada",
+        "businessHours": {
+          "monday": "09:00-17:00",
+          "tuesday": "09:00-17:00",
+          "wednesday": "09:00-17:00",
+          "thursday": "09:00-17:00",
+          "friday": "09:00-17:00",
+          "saturday": "closed",
+          "sunday": "closed"
+        }
+      }
+    }
+  ]
+}
+
