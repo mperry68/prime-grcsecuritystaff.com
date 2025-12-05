@@ -438,8 +438,8 @@ Update language-specific meta tags:
 <meta name="language" content="French">
 <meta http-equiv="content-language" content="fr-CA">
 <meta property="og:locale" content="fr_CA">
-<link rel="alternate" hreflang="fr" href="https://prime-grcsecuritystaff.com/fr/your-page.html">
-<link rel="alternate" hreflang="en" href="https://prime-grcsecuritystaff.com/your-page.html">
+<link rel="alternate" hreflang="fr" href="https://prime-consulting.ca/fr/your-page.html">
+<link rel="alternate" hreflang="en" href="https://prime-consulting.ca/your-page.html">
 ```
 
 #### Step 5: Use Absolute Paths

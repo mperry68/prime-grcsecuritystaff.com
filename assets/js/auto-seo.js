@@ -8,7 +8,7 @@
     // Base configuration - applies to all pages
     const baseConfig = {
         siteName: 'Prime Consulting Group',
-        siteUrl: 'https://prime-grcsecuritystaff.com',
+        siteUrl: 'https://prime-consulting.ca',
         defaultImage: '/public/images/cybersecurity-data-protection-concept-futuristic-shield-lock-scaled.jpg',
         logo: '/public/images/Prime-logo-RGB-e1709926780278-2-1.svg',
         address: {
